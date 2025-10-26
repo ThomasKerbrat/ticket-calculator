@@ -1,5 +1,6 @@
-import CalculatorView from '@/views/CalculatorView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import CalculatorView from '@/views/CalculatorView.vue'
+import NewItemView from '@/views/NewItemView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,11 @@ const router = createRouter({
     {
       path: "/",
       component: CalculatorView,
-    }
+    },
+    {
+      path: "/new-item",
+      component: NewItemView,
+    },
   ],
 })
 

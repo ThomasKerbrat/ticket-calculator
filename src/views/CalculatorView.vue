@@ -1,98 +1,106 @@
 <script setup lang="ts">
-import { ref, computed, type Ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { useNumberFormat } from "@/composables/useNumberFormat";
-import { TicketItem, type TicketItemDraft } from "@/models/TicketItem";
+import { useItemsStore } from "@/stores/items";
+
+const router = useRouter();
 
 const { formatCurrency } = useNumberFormat('fr-FR');
 
-const items: Ref<TicketItem[]> = ref([]);
-const ticketItemDraf = ref<TicketItemDraft>({});
+const itemsStore = useItemsStore();
+const totalPrice = computed(() => itemsStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
-const itemFullPrice = computed(() => {
-    if (ticketItemDraf.value.price == undefined || ticketItemDraf.value.quantity == undefined) {
-        return 0;
-    }
-
-    return ticketItemDraf.value.price * ticketItemDraf.value.quantity;
-});
-
-const totalPrice = computed(() => items.value.reduce((sum, item) => sum + item.price * item.quantity, 0));
-
-function onFormSubmit() {
-    if (
-        ticketItemDraf.value.label == undefined
-        || ticketItemDraf.value.label.length === 0
-        || ticketItemDraf.value.price == undefined
-        || ticketItemDraf.value.quantity == undefined
-    ) {
-        return;
-    }
-
-    items.value.push(new TicketItem(ticketItemDraf.value.label, ticketItemDraf.value.price, ticketItemDraf.value.quantity));
-
-    ticketItemDraf.value.label = "";
-    ticketItemDraf.value.price = undefined;
-    ticketItemDraf.value.quantity = undefined;
+function onNewItem() {
+    router.push("/new-item");
 }
 </script>
 
 <template>
-    <ul>
-        <li v-for="item in items" :key="item.label">
-            {{ item.label }} - {{ formatCurrency(item.total) }}
-            ({{ item.quantity }} x {{ formatCurrency(item.price) }})
-        </li>
-    </ul>
+    <section class="items-summary flex row">
+        <div class="items-quantity">{{ itemsStore.items.length }} articles</div>
+        <div class="items-total-price">{{ formatCurrency(totalPrice) }}</div>
+    </section>
 
-    <form @submit.prevent="onFormSubmit">
-        <div class="container">
-            <div class="line1">
-                <input v-model="ticketItemDraf.label" type="text" placeholder="Article">
-                <span>{{ formatCurrency(itemFullPrice) }}</span>
-            </div>
-            <div class="line2">
-                <input v-model="ticketItemDraf.price" type="number" placeholder="Prix" min="0" step="0.01">
-                <input v-model="ticketItemDraf.quantity" type="number" placeholder="Quantité" min="0">
+    <template v-if="itemsStore.items.length > 0">
+        <button class="new-item" @click="onNewItem">+</button>
+    
+        <div class="ticket-item-list flex col">
+            <div v-for="item in itemsStore.items" class="ticket-item-list-element flex row">
+                <div>{{ item.quantity }}</div>
+                <div style="flex-grow: 1;">{{ item.label }}</div>
+                <div>{{ formatCurrency(item.total) }}</div>
             </div>
         </div>
-        <button>Ajouter</button>
-    </form>
-
-    <div class="total-price">{{ formatCurrency(totalPrice) }}</div>
+    </template>
+    <section v-else class="new-item-hero">
+        <p>Aucun article pour le moment</p>
+        <button @click="onNewItem">Ajouter un article</button>
+    </section>
 </template>
 
 <style scoped>
-.container {
+.items-summary {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+}
+.items-quantity {
+    display: inline-block;
+    flex-grow: 1;
+}
+.items-total-price {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.new-item {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    background-color: #eee;
+    font-size: 2rem;
+    user-select: none;
+}
+
+.new-item-hero {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 1rem;
+    margin-top: 20vh;
+    padding: 1rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+}
+.new-item-hero > * {
+    margin-top: 1rem;
+}
+.new-item-hero > button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #eee;
 }
 
-.line1 {
-    display: flex;
-    gap: 8px;
-}
-.line1 > input {
-    flex-grow: 1;
-}
-.line1 > span {
-    text-align: right;
+.ticket-item-list {
+    margin: 1rem;
+    border: 1px solid #eee;
+    border-radius: 0.75rem;
 }
 
-.line2 {
-    display: flex;
-    gap: 8px;
-}
-.line2 > input {
-    flex-grow: 1;
+.ticket-item-list > * + * {
+    border-top: 1px solid #eee;
 }
 
-.total-price {
-    position: fixed;
-    bottom: 16px;
-    right: 16px;
-    padding: 8px;
-    border: 1px solid green;
-    border-radius: 8px;
+.ticket-item-list-element {
+    padding: 0.75rem;
+    gap: 0.5rem;
 }
 </style>
