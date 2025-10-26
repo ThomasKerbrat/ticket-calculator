@@ -22,3 +22,16 @@ input {
 /* #app {
     min-height: 100vh;
 } */
+
+.btn {
+    display: inline-block;
+	background-color: #eee;
+	padding: 0.5rem;
+}
+.btn-outlined {
+	background-color: unset;
+    border: 1px solid #eee;
+}
+.btn-sm {
+    font-size: 0.75rem;
+}

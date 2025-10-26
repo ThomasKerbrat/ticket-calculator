@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useItemsStore } from "@/stores/items";
@@ -11,8 +11,12 @@ const { formatCurrency } = useNumberFormat('fr-FR');
 const itemsStore = useItemsStore();
 const totalPrice = computed(() => itemsStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
-function onNewItem() {
-    router.push("/new-item");
+function onAddItemClick() {
+    router.push({ name: "items.add" });
+}
+
+function onEditItemClick(id: number) {
+    router.push({ name: "items.edit", params: { id } });
 }
 </script>
 
@@ -23,10 +27,10 @@ function onNewItem() {
     </section>
 
     <template v-if="itemsStore.items.length > 0">
-        <button class="new-item" @click="onNewItem">+</button>
+        <button class="new-item" @click="onAddItemClick">+</button>
     
         <div class="ticket-item-list flex col">
-            <div v-for="item in itemsStore.items" class="ticket-item-list-element flex row">
+            <div class="ticket-item-list-element flex row" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">{{ item.label }}</div>
                 <div>{{ formatCurrency(item.total) }}</div>
@@ -35,7 +39,7 @@ function onNewItem() {
     </template>
     <section v-else class="new-item-hero">
         <p>Aucun article pour le moment</p>
-        <button @click="onNewItem">Ajouter un article</button>
+        <button @click="onAddItemClick">Ajouter un article</button>
     </section>
 </template>
 

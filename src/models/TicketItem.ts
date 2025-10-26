@@ -1,5 +1,6 @@
 export class TicketItem {
     constructor(
+        public id: number,
         public label: string,
         public price: number,
         public quantity: number,
@@ -11,6 +12,7 @@ export class TicketItem {
 }
 
 export interface TicketItemDraft {
+    id?: number;
     label?: string;
     price?: number;
     quantity?: number;
