@@ -10,6 +10,10 @@ const itemsStore = useItemsStore();
 const itemId = Number(route.params.id);
 const item = itemsStore.getItemById(itemId);
 
+if (item == undefined) {
+    router.replace({ name: "items.home" });
+}
+
 function onCancelClick() {
     router.push({ name: "items.home" });
 }
@@ -31,7 +35,7 @@ function onDeleteClick() {
             <h1 style="flex-grow: 1;">Modifier l'article</h1>
             <span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
         </div>
-        <TicketItemForm :draft="item" @submit="onFormSubmit"></TicketItemForm>
+        <TicketItemForm :draft="item" submit-text="Modifier" @submit="onFormSubmit"></TicketItemForm>
         <span class="btn btn-danger" @click="onDeleteClick">Supprimer</span>
     </section>
 </template>

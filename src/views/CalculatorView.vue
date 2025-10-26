@@ -32,7 +32,10 @@ function onEditItemClick(id: number) {
         <div class="ticket-item-list flex col">
             <div class="ticket-item-list-element flex row" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
-                <div style="flex-grow: 1;">{{ item.label }}</div>
+                <div style="flex-grow: 1;">
+                    {{ item.label }}
+                    <span class="text-mutted" v-if="item.quantity > 1"> ({{ formatCurrency(item.price) }})</span>
+                </div>
                 <div>{{ formatCurrency(item.total) }}</div>
             </div>
         </div>

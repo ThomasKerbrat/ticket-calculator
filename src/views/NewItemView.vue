@@ -23,7 +23,7 @@ function onFormSubmit(draft: TicketItemDraft) {
             <h1 style="flex-grow: 1;">Ajouter un article</h1>
             <span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
         </div>
-        <TicketItemForm @submit="onFormSubmit"></TicketItemForm>
+        <TicketItemForm submit-text="Ajouter" @submit="onFormSubmit"></TicketItemForm>
     </section>
 </template>
 

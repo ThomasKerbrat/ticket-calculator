@@ -6,6 +6,7 @@ const { formatCurrency } = useNumberFormat('fr-FR');
 
 const props = defineProps<{
 	draft?: TicketItem,
+	submitText: string,
 }>();
 
 const emit = defineEmits<{
@@ -64,7 +65,7 @@ function onFormSubmit() {
 			<span class="input-spinner" @click="decreaseQuantity">-</span>
 			<span class="input-spinner" @click="increaseQuantity">+</span>
 		</div>
-		<button class="submit-button">Ajouter</button>
+		<button class="submit-button">{{ props.submitText }}</button>
 	</form>
 </template>
 
