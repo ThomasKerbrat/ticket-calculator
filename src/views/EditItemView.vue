@@ -16,7 +16,12 @@ function onCancelClick() {
 
 function onFormSubmit(draft: TicketItemDraft) {
     itemsStore.editItem(itemId, draft);
-    router.push("/");
+    router.push({ name: "items.home" });
+}
+
+function onDeleteClick() {
+    itemsStore.removeItem(itemId);
+    router.push({ name: "items.home" });
 }
 </script>
 
@@ -27,6 +32,7 @@ function onFormSubmit(draft: TicketItemDraft) {
             <span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
         </div>
         <TicketItemForm :draft="item" @submit="onFormSubmit"></TicketItemForm>
+        <span class="btn btn-danger" @click="onDeleteClick">Supprimer</span>
     </section>
 </template>
 

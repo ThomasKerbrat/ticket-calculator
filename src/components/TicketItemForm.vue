@@ -12,7 +12,7 @@ const emit = defineEmits<{
 	(e: "submit", draft: TicketItemDraft): void,
 }>();
 
-const draft = ref<TicketItemDraft>(props.draft ? props.draft : { quantity: 1 });
+const draft = ref<TicketItemDraft>(props.draft ? { ...props.draft } : { quantity: 1 });
 
 const fullPrice = computed(() => {
 	if (draft.value.price == undefined || draft.value.quantity == undefined) {

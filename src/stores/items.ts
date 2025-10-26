@@ -22,7 +22,20 @@ export const useItemsStore = defineStore("items", () => {
     }
 
     function editItem(id: number, draft: TicketItemDraft) {
+        const item = getItemById(id);
+        if (!item) { return; }
 
+        if (draft.label) { item.label = draft.label; }
+        if (draft.price) { item.price = draft.price; }
+        if (draft.quantity) { item.quantity = draft.quantity; }
+    }
+
+    function removeItem(id: number) {
+        const index = items.value.findIndex(item => item.id === id);
+
+        if (index != undefined) {
+            items.value.splice(index, 1);
+        }
     }
 
     return {
@@ -30,5 +43,6 @@ export const useItemsStore = defineStore("items", () => {
         getItemById,
         addItem,
         editItem,
+        removeItem,
     };
 });
