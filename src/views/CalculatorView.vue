@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useItemsStore } from "@/stores/items";
@@ -18,6 +18,17 @@ function onAddItemClick() {
 function onEditItemClick(id: number) {
     router.push({ name: "items.edit", params: { id } });
 }
+
+let rootRem = ref(16);
+function onZoomInClick() {
+    rootRem.value += 2;
+    document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
+}
+
+function onZoomOutClick() {
+    rootRem.value -= 2;
+    document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
+}
 </script>
 
 <template>
@@ -26,8 +37,19 @@ function onEditItemClick(id: number) {
         <div class="items-total-price">{{ formatCurrency(totalPrice) }}</div>
     </section>
 
-    <template v-if="itemsStore.items.length > 0">
-        <button class="new-item" @click="onAddItemClick">+</button>
+    <section class="app-zoom-controls">
+        <span style="flex-grow: 1;"></span>
+        <i class="bi bi-zoom-out" @click="onZoomOutClick"></i>
+        <span>{{ rootRem }}</span>
+        <i class="bi bi-zoom-in" @click="onZoomInClick"></i>
+    </section>
+
+    <section v-if="itemsStore.items.length == 0" class="new-item-hero">
+        <p>Aucun article pour le moment</p>
+        <button @click="onAddItemClick">Ajouter un article</button>
+    </section>
+    <template v-else>
+        <i class="new-item bi bi-plus" @click="onAddItemClick"></i>
     
         <div class="ticket-item-list flex col">
             <div class="ticket-item-list-element flex row" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
@@ -40,10 +62,6 @@ function onEditItemClick(id: number) {
             </div>
         </div>
     </template>
-    <section v-else class="new-item-hero">
-        <p>Aucun article pour le moment</p>
-        <button @click="onAddItemClick">Ajouter un article</button>
-    </section>
 </template>
 
 <style scoped>
@@ -66,11 +84,13 @@ function onEditItemClick(id: number) {
 
 .new-item {
     position: fixed;
-    right: 16px;
-    bottom: 64px;
-    display: inline-block;
-    width: 4rem;
-    height: 4rem;
+    right: 1rem;
+    bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
     border-radius: 2rem;
     background-color: #eee;
     font-size: 2rem;
@@ -112,5 +132,14 @@ function onEditItemClick(id: number) {
 .ticket-item-list-element {
     padding: 0.75rem;
     gap: 0.5rem;
+}
+
+.app-zoom-controls {
+    display: flex;
+    align-items: center;
+}
+.app-zoom-controls > i {
+    font-size: 1.5rem;
+    padding: 0.5rem;
 }
 </style>
