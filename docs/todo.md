@@ -1,5 +1,5 @@
 - [x] Ajouter les modèles Ticket et Category
-- [ ] Déplacer le prix total en bas de la page
+- [x] Déplacer le prix total en bas de la page
 - [ ] Ajouter un menu en haut à gauche pour accéder à la liste des tickets et des catégories
 - [ ] Ajouter une route qui liste les tickets
 - [ ] Ajouter un bouton sur la page des articles pour créer un nouveau ticket

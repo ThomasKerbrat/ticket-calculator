@@ -48,8 +48,11 @@ function onEditItemClick(id: number) {
 
 <style scoped>
 .items-summary {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
     padding: 1rem;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
     background-color: #eee;
 }
 .items-quantity {
@@ -64,7 +67,7 @@ function onEditItemClick(id: number) {
 .new-item {
     position: fixed;
     right: 16px;
-    bottom: 16px;
+    bottom: 64px;
     display: inline-block;
     width: 4rem;
     height: 4rem;
