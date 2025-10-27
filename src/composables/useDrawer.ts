@@ -1,6 +1,6 @@
 import { readonly, ref, shallowRef } from "vue";
 
-const isOpen = ref(true);
+const isOpen = ref(false);
 const currentComponent = shallowRef<object | null>(null);
 const currentProps = ref({});
 const title = ref("");

@@ -12,7 +12,7 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 		<!-- Panel -->
 		<aside :class="['drawer', { 'drawer-open': isOpen }]">
 			<div class="drawer-header">
-				<button class="close-btn" @click="close">x</button>
+				<i class="close-btn bi bi-x" @click="close"></i>
 				<h3 v-if="title">{{ title }}</h3>
 			</div>
 
@@ -50,11 +50,12 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 }
 
 .drawer-header {
-	padding: 1rem;
+	padding: 0.5rem;
 	border-bottom: 1px solid #eee;
 	display: flex;
-	justify-content: space-between;
+	justify-content: start;
 	align-items: center;
+	gap: 1rem;
 	font-weight: 600;
 }
 
@@ -63,9 +64,6 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 	border: none;
 	font-size: 1.5rem;
 	cursor: pointer;
-	padding: 0;
-	width: 32px;
-	height: 32px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
