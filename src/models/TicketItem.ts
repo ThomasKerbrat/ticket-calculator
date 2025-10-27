@@ -4,6 +4,7 @@ export class TicketItem {
         public label: string,
         public price: number,
         public quantity: number,
+        public categoryId?: number,
     ) { }
 
     get total() {
@@ -16,4 +17,5 @@ export interface TicketItemDraft {
     label?: string;
     price?: number;
     quantity?: number;
+    categoryId?: number;
 }
