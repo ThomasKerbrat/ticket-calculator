@@ -1,15 +1,13 @@
-export class TicketItem {
-    constructor(
-        public id: number,
-        public label: string,
-        public price: number,
-        public quantity: number,
-        public categoryId?: number,
-    ) { }
+export interface TicketItem {
+    id: number;
+    label: string;
+    price: number;
+    quantity: number;
+    categoryId?: number;
+}
 
-    get total() {
-        return this.price * this.quantity;
-    }
+export function ticketItemTotal(item: TicketItem) {
+    return item.price * item.quantity;
 }
 
 export interface TicketItemDraft {

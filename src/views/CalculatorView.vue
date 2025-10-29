@@ -4,7 +4,8 @@ import { useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
-import { useItemsStore } from "@/stores/tickets.ts";
+import { ticketItemTotal } from "@/models/TicketItem.ts";
+import { useTicketsStore } from "@/stores/tickets.ts";
 import AppZoomControls from '@/components/AppZoomControls.vue';
 import DrawerNav from "@/components/DrawerNav.vue";
 
@@ -13,8 +14,8 @@ const router = useRouter();
 
 const { formatCurrency } = useNumberFormat('fr-FR');
 
-const itemsStore = useItemsStore();
-const totalPrice = computed(() => itemsStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+const ticketsStore = useTicketsStore();
+const totalPrice = computed(() => ticketsStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
 function onAddItemClick() {
     router.push({ name: "items.add" });
@@ -37,20 +38,20 @@ function onEditItemClick(id: number) {
 	</div>
 
     <!-- New item Hero -->
-    <section v-if="itemsStore.items.length == 0" class="new-item-hero">
+    <section v-if="ticketsStore.items.length == 0" class="new-item-hero">
         <p>Aucun article pour le moment</p>
         <button class="btn" @click="onAddItemClick">Ajouter un article</button>
     </section>
     <template v-else>
         <!-- Ticket items list -->
         <section class="ticket-list list">
-            <div class="ticket-element list-item" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
+            <div class="ticket-element list-item" v-for="item in ticketsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}
                     <span class="ticket-element-unit-price" v-if="item.quantity > 1"> ({{ formatCurrency(item.price) }})</span>
                 </div>
-                <div>{{ formatCurrency(item.total) }}</div>
+                <div>{{ formatCurrency(ticketItemTotal(item)) }}</div>
             </div>
         </section>
 
@@ -65,7 +66,7 @@ function onEditItemClick(id: number) {
 
     <!-- Bottom toolbar -->
     <div class="toolbar toolbar-fixed-bottom toolbar-primary">
-        <span>{{ itemsStore.items.length }} articles</span>
+        <span>{{ ticketsStore.items.length }} articles</span>
         <span class="toolbar-spacer"></span>
         <span class="items-total-price">{{ formatCurrency(totalPrice) }}</span>
     </div>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import { type TicketItemDraft } from '@/models/TicketItem';
-import { useItemsStore } from "@/stores/items";
+import { useTicketsStore } from "@/stores/tickets.ts";
 import TicketItemForm from '@/components/TicketItemForm.vue';
 
 const router = useRouter();
-const itemsStore = useItemsStore();
+const ticketsStore = useTicketsStore();
 
 function onCancelClick() {
     router.push({ name: "items.home" });
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
-    itemsStore.addItem(draft);
+    ticketsStore.addItem(draft);
     router.push({ name: "items.home" });
 }
 </script>

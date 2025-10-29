@@ -1,27 +1,9 @@
-import { ref } from "vue";
 import { defineStore } from "pinia";
-import { TicketItem, type TicketItemDraft } from "@/models/TicketItem";
+import type { TicketItem, TicketItemDraft } from "@/models/TicketItem";
 import { useLocalStorage } from "@/composables/useLocalStorage";
 
-const serializer = {
-    read(str: string) {
-        const items: TicketItem[] = [];
-        let list;
-
-        try {
-            list = JSON.parse(str);
-
-            for (let item of list) {
-                items.push(new TicketItem(item.id, item.label, item.price, item.quantity));
-            }
-        } catch { }
-
-        return items;
-    },
-};
-
-export const useItemsStore = defineStore("tickets", () => {
-    const items = useLocalStorage<TicketItem[]>("tickets", [], { serializer });
+export const useTicketsStore = defineStore("tickets", () => {
+    const items = useLocalStorage<TicketItem[]>("tickets", []);
     let nextId = items.value.length > 0 ? Math.max(...items.value.map((item: any) => item.id)) + 1 : 1;
 
     function getItemById(id: number): TicketItem | undefined {
@@ -34,9 +16,8 @@ export const useItemsStore = defineStore("tickets", () => {
 
     function addItem(draft: TicketItemDraft): void {
         if (draft.label && draft.price && draft.quantity) {
-            items.value.push(new TicketItem(nextId, draft.label, draft.price, draft.quantity));
+            items.value.push({ id: nextId, label: draft.label, price: draft.price, quantity: draft.quantity });
             nextId++;
-            console.log(items.value, nextId);
         }
     }
 

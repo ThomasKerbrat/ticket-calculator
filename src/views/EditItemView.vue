@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
 import { type TicketItemDraft } from '@/models/TicketItem';
-import { useItemsStore } from "@/stores/items";
+import { useTicketsStore } from "@/stores/tickets.ts";
 import TicketItemForm from '@/components/TicketItemForm.vue';
 
 const router = useRouter();
 const route = useRoute();
-const itemsStore = useItemsStore();
+const ticketsStore = useTicketsStore();
 const itemId = Number(route.params.id);
-const item = itemsStore.getItemById(itemId);
+const item = ticketsStore.getItemById(itemId);
 
 if (item == undefined) {
     router.replace({ name: "items.home" });
@@ -19,12 +19,12 @@ function onCancelClick() {
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
-    itemsStore.editItem(itemId, draft);
+    ticketsStore.editItem(itemId, draft);
     router.push({ name: "items.home" });
 }
 
 function onDeleteClick() {
-    itemsStore.removeItem(itemId);
+    ticketsStore.removeItem(itemId);
     router.push({ name: "items.home" });
 }
 </script>
