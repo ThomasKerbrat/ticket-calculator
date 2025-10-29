@@ -1,0 +1,5 @@
+@import "../../../node_modules/ress/ress.css";
+
+input {
+	min-width: 0px;
+}

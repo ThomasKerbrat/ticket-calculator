@@ -1,0 +1,20 @@
+:root {
+	--spacing: 16px;
+	--space-1: calc(var(--spacing) * 0.25);
+	--space-2: calc(var(--spacing) * 0.5);
+	--space-3: var(--spacing);
+	--space-4: calc(var(--spacing) * 1.25);
+	--space-5: calc(var(--spacing) * 1.5);
+
+	--sizing: 16px;
+	--size-1: calc(var(--sizing) * 0.25);
+	--size-2: calc(var(--sizing) * 0.5);
+	--size-3: var(--sizing);
+	--size-4: calc(var(--sizing) * 1.25);
+	--size-5: calc(var(--sizing) * 1.5);
+}
+
+html {
+	font-size: var(--size-3);
+	font-family: Arial, Helvetica, sans-serif;
+}

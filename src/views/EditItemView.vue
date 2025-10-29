@@ -30,9 +30,9 @@ function onDeleteClick() {
 </script>
 
 <template>
-    <section class="flex col">
-        <div class="flex row" style="align-items: center;">
-            <h1 style="flex-grow: 1;">Modifier l'article</h1>
+    <section>
+        <div class="heading">
+            <h1 class="heading-title">Modifier l'article</h1>
             <span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
         </div>
         <TicketItemForm :draft="item" submit-text="Modifier" @submit="onFormSubmit"></TicketItemForm>
@@ -42,6 +42,8 @@ function onDeleteClick() {
 
 <style scoped>
 section {
+    display: flex;
+    flex-direction: column;
     margin: 1rem;
     gap: 1rem;
 }

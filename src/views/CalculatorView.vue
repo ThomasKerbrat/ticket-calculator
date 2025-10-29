@@ -46,7 +46,7 @@ function onZoomOutClick() {
 
     <section v-if="itemsStore.items.length == 0" class="new-item-hero">
         <p>Aucun article pour le moment</p>
-        <button @click="onAddItemClick">Ajouter un article</button>
+        <button class="btn" @click="onAddItemClick">Ajouter un article</button>
     </section>
     <template v-else>
         <i class="new-item bi bi-plus" @click="onAddItemClick"></i>
@@ -115,8 +115,8 @@ function onZoomOutClick() {
 }
 .new-item-hero > button {
     width: 100%;
-    padding: 0.5rem;
-    background-color: #eee;
+    /* padding: 0.5rem; */
+    /* background-color: #eee; */
 }
 
 .ticket-item-list {

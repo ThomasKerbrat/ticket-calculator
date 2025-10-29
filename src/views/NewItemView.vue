@@ -18,9 +18,9 @@ function onFormSubmit(draft: TicketItemDraft) {
 </script>
 
 <template>
-    <section class="flex col">
-        <div class="flex row" style="align-items: center;">
-            <h1 style="flex-grow: 1;">Ajouter un article</h1>
+    <section>
+        <div class="heading">
+            <h1 class="heading-title">Ajouter un article</h1>
             <span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
         </div>
         <TicketItemForm submit-text="Ajouter" @submit="onFormSubmit"></TicketItemForm>
@@ -29,6 +29,8 @@ function onFormSubmit(draft: TicketItemDraft) {
 
 <style scoped>
 section {
+    display: flex;
+    flex-direction: column;
     margin: 1rem;
     gap: 1rem;
 }
