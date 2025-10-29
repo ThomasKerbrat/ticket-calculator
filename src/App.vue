@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppZoomControls from './components/AppZoomControls.vue';
 import Drawer from './components/drawer.vue';
 import { useDrawer } from './composables/useDrawer';
 
@@ -9,6 +10,7 @@ const { open } = useDrawer();
 	<div class="navbar">
 		<i id="btn-drawer" class="bi bi-list" @click="open({ component: {}, title: 'Menu' })"></i>
 		<input style="flex-grow: 1;" type="text" value="ticket">
+		<AppZoomControls></AppZoomControls>
 	</div>
 	<RouterView></RouterView>
 	<Drawer></Drawer>

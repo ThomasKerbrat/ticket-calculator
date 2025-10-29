@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useItemsStore } from "@/stores/items";
@@ -18,30 +18,12 @@ function onAddItemClick() {
 function onEditItemClick(id: number) {
     router.push({ name: "items.edit", params: { id } });
 }
-
-let rootRem = ref(16);
-function onZoomInClick() {
-    rootRem.value += 2;
-    document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
-}
-
-function onZoomOutClick() {
-    rootRem.value -= 2;
-    document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
-}
 </script>
 
 <template>
     <section class="items-summary flex row">
         <div class="items-quantity">{{ itemsStore.items.length }} articles</div>
         <div class="items-total-price">{{ formatCurrency(totalPrice) }}</div>
-    </section>
-
-    <section class="app-zoom-controls">
-        <span style="flex-grow: 1;"></span>
-        <i class="bi bi-zoom-out" @click="onZoomOutClick"></i>
-        <span>{{ rootRem }}</span>
-        <i class="bi bi-zoom-in" @click="onZoomInClick"></i>
     </section>
 
     <section v-if="itemsStore.items.length == 0" class="new-item-hero">
@@ -132,14 +114,5 @@ function onZoomOutClick() {
 .ticket-item-list-element {
     padding: 0.75rem;
     gap: 0.5rem;
-}
-
-.app-zoom-controls {
-    display: flex;
-    align-items: center;
-}
-.app-zoom-controls > i {
-    font-size: 1.5rem;
-    padding: 0.5rem;
 }
 </style>
