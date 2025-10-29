@@ -19,3 +19,15 @@ html {
 	font-size: var(--size-3);
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+/*
+
+0.25:  4
+0.50:  8
+0.75: 12
+1.00: 16
+1.25: 20
+1.50: 24
+2.00: 32
+
+*/

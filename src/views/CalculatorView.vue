@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRouter } from "vue-router";
+
+import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useItemsStore } from "@/stores/items";
+import AppZoomControls from '@/components/AppZoomControls.vue';
 
+
+const { open } = useDrawer();
 const router = useRouter();
 
 const { formatCurrency } = useNumberFormat('fr-FR');
@@ -21,19 +26,24 @@ function onEditItemClick(id: number) {
 </script>
 
 <template>
-    <section class="items-summary flex row">
-        <div class="items-quantity">{{ itemsStore.items.length }} articles</div>
-        <div class="items-total-price">{{ formatCurrency(totalPrice) }}</div>
-    </section>
+    <!-- Top toolbar -->
+	<div class="toolbar toolbar-top toolbar-primary">
+		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: {}, title: 'Menu' })">
+			<use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#list"/>
+		</svg>
+		<span>Ticket</span>
+		<span class="toolbar-spacer"></span>
+		<AppZoomControls></AppZoomControls>
+	</div>
 
+    <!-- New item Hero -->
     <section v-if="itemsStore.items.length == 0" class="new-item-hero">
         <p>Aucun article pour le moment</p>
         <button class="btn" @click="onAddItemClick">Ajouter un article</button>
     </section>
     <template v-else>
-        <i class="new-item bi bi-plus" @click="onAddItemClick"></i>
-    
-        <div class="list ticket-list">
+        <!-- Ticket items list -->
+        <section class="list ticket-list">
             <div class="list-item ticket-element" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
@@ -42,41 +52,37 @@ function onEditItemClick(id: number) {
                 </div>
                 <div>{{ formatCurrency(item.total) }}</div>
             </div>
-        </div>
+        </section>
+
+        <!-- Floating action button -->
+        <!-- <i class="new-item bi bi-plus" @click="onAddItemClick"></i> -->
+        <span class="new-item btn btn-icon" @click="onAddItemClick">
+            <svg class="bi" width="24" height="24" fill="currentColor">
+                <use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#plus"/>
+            </svg>
+        </span>
     </template>
+
+    <!-- Bottom toolbar -->
+    <div class="toolbar toolbar-fixed-bottom toolbar-primary">
+        <span>{{ itemsStore.items.length }} articles</span>
+        <span class="toolbar-spacer"></span>
+        <span class="items-total-price">{{ formatCurrency(totalPrice) }}</span>
+    </div>
 </template>
 
 <style scoped>
-.items-summary {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    padding: 1rem;
-    border-top: 1px solid #ddd;
-    background-color: #eee;
-}
-.items-quantity {
-    display: inline-block;
-    flex-grow: 1;
-}
 .items-total-price {
-    display: inline-block;
     font-weight: bold;
 }
 
 .new-item {
     position: fixed;
     right: 1rem;
-    bottom: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    bottom: 3.5rem;
     width: 3rem;
     height: 3rem;
-    border-radius: 2rem;
-    background-color: #eee;
-    font-size: 2rem;
-    user-select: none;
+    border-radius: 50%;
 }
 
 .new-item-hero {
@@ -97,8 +103,6 @@ function onEditItemClick(id: number) {
 }
 .new-item-hero > button {
     width: 100%;
-    /* padding: 0.5rem; */
-    /* background-color: #eee; */
 }
 
 .ticket-list {

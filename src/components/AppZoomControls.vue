@@ -4,12 +4,12 @@ import { ref } from "vue";
 let rootRem = ref(16);
 function onZoomInClick() {
 	rootRem.value += 2;
-	document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
+	document.querySelector("html")!.style.setProperty("--sizing", `${rootRem.value}px`);
 }
 
 function onZoomOutClick() {
 	rootRem.value -= 2;
-	document.querySelector("html")!.style.fontSize = `${rootRem.value}px`;
+	document.querySelector("html")!.style.setProperty("--sizing", `${rootRem.value}px`);
 }
 </script>
 
