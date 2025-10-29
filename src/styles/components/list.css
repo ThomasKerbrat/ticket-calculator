@@ -1,0 +1,15 @@
+.list {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #eee;
+    border-radius: var(--space-2);
+}
+
+.list > .list-item + .list-item {
+    border-top: 1px solid #eee;
+}
+
+.list-item {
+    padding: var(--space-2) var(--space-3);
+}

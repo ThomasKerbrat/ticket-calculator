@@ -33,8 +33,8 @@ function onEditItemClick(id: number) {
     <template v-else>
         <i class="new-item bi bi-plus" @click="onAddItemClick"></i>
     
-        <div class="ticket-item-list flex col">
-            <div class="ticket-item-list-element flex row" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
+        <div class="list ticket-list">
+            <div class="list-item ticket-element" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}
@@ -101,18 +101,12 @@ function onEditItemClick(id: number) {
     /* background-color: #eee; */
 }
 
-.ticket-item-list {
+.ticket-list {
     margin: 1rem;
-    border: 1px solid #eee;
-    border-radius: 0.75rem;
 }
 
-.ticket-item-list > * + * {
-    border-top: 1px solid #eee;
-}
-
-.ticket-item-list-element {
-    padding: 0.75rem;
+.ticket-element {
+    display: flex;
     gap: 0.5rem;
 }
 </style>

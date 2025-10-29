@@ -9,6 +9,7 @@
 	--sizing: 16px;
 	--size-1: calc(var(--sizing) * 0.25);
 	--size-2: calc(var(--sizing) * 0.5);
+	/* TODO: add 0.75 step */
 	--size-3: var(--sizing);
 	--size-4: calc(var(--sizing) * 1.25);
 	--size-5: calc(var(--sizing) * 1.5);
