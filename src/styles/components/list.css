@@ -3,7 +3,7 @@
     flex-direction: column;
 
     border: 1px solid #eee;
-    border-radius: var(--space-2);
+    border-radius: var(--size-050);
 }
 
 .list > .list-item + .list-item {
@@ -11,5 +11,5 @@
 }
 
 .list-item {
-    padding: var(--space-2) var(--space-3);
+    padding: var(--size-050) var(--size-100);
 }

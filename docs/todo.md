@@ -6,5 +6,5 @@
 - [ ] Ajouter des catégories aux articles
 - [ ] Lors du premier lancement, afficher une page d'onboarding où on peut choisir sa région, son pays et sa devise
 
-- [ ] Consolider les styles CSS
+- [x] Consolider les styles CSS
 - [ ] Créer un thème alternatif pour concevoir correctement le CSS entre ce qui est fixe et ce qui est personnalisable

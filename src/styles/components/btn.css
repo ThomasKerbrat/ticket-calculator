@@ -1,9 +1,9 @@
 .btn {
 	display: inline-block;
 	background-color: #eee;
-	padding: var(--space-2) var(--space-3);
+	padding: var(--size-050) var(--size-100);
 	text-align: center;
-	border-radius: var(--space-2);
+	border-radius: var(--size-050);
 	cursor: pointer;
 }
 
@@ -24,6 +24,6 @@
 }
 
 .btn-sm {
-	padding: var(--space-1) var(--space-2);
-	font-size: 0.75rem;
+	padding: var(--size-025) var(--size-050);
+	font-size: var(--size-075);
 }

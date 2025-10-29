@@ -43,8 +43,8 @@ function onEditItemClick(id: number) {
     </section>
     <template v-else>
         <!-- Ticket items list -->
-        <section class="list ticket-list">
-            <div class="list-item ticket-element" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
+        <section class="ticket-list list">
+            <div class="ticket-element list-item" v-for="item in itemsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}
