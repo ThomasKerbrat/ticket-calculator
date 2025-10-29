@@ -33,10 +33,8 @@ export function useLocalStorage<T>(
 	}
 
 	function write(): void {
-		console.log("write", payload);
 		if (payload.value) {
 			localStorage.setItem(storageKey, options?.serializer.write ? options.serializer.write(payload.value) : JSON.stringify(payload.value));
-			console.log("written");
 		}
 	}
 

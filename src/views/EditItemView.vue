@@ -7,25 +7,26 @@ import TicketItemForm from '@/components/TicketItemForm.vue';
 const router = useRouter();
 const route = useRoute();
 const ticketsStore = useTicketsStore();
-const itemId = Number(route.params.id);
-const item = ticketsStore.getItemById(itemId);
+const ticketId = Number(route.params.ticketId);
+const itemId = Number(route.params.itemId);
+const item = ticketsStore.getTicket(ticketId)?.items[itemId];
 
 if (item == undefined) {
-    router.replace({ name: "tickets.edit" });
+    router.replace({ name: "tickets.edit", params: { id: ticketId } });
 }
 
 function onCancelClick() {
-    router.push({ name: "tickets.edit" });
+    router.push({ name: "tickets.edit", params: { id: ticketId } });
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
-    ticketsStore.editItem(itemId, draft);
-    router.push({ name: "tickets.edit" });
+    ticketsStore.editItem(ticketId, itemId, draft);
+    router.push({ name: "tickets.edit", params: { id: ticketId } });
 }
 
 function onDeleteClick() {
-    ticketsStore.removeItem(itemId);
-    router.push({ name: "tickets.edit" });
+    ticketsStore.removeItem(ticketId, itemId);
+    router.push({ name: "tickets.edit", params: { id: ticketId } });
 }
 </script>
 

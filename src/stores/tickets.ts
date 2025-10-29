@@ -1,28 +1,38 @@
+import { readonly } from "vue";
 import { defineStore } from "pinia";
-import type { TicketItem, TicketItemDraft } from "@/models/TicketItem";
+
+import type { Ticket } from "@/models/Ticket.ts";
+import type { TicketItem, TicketItemDraft } from "@/models/TicketItem.ts";
 import { useLocalStorage } from "@/composables/useLocalStorage";
 
 export const useTicketsStore = defineStore("tickets", () => {
+    const tickets = useLocalStorage<Ticket[]>("tickets", []);
     const items = useLocalStorage<TicketItem[]>("tickets", []);
-    let nextId = items.value.length > 0 ? Math.max(...items.value.map((item: any) => item.id)) + 1 : 1;
+    let nextId = tickets.value.length > 0 ? Math.max(...tickets.value.map((ticket: any) => ticket.id)) + 1 : 1;
 
-    function getItemById(id: number): TicketItem | undefined {
-        for (let item of items.value) {
-            if (item.id === id) {
-                return item;
-            }
-        }
+    function createTicket(): Ticket {
+        tickets.value.push({ id: nextId, created: new Date(), items: [] });
+        nextId++;
+        return tickets.value[tickets.value.length - 1]!;
     }
 
-    function addItem(draft: TicketItemDraft): void {
-        if (draft.label && draft.price && draft.quantity) {
-            items.value.push({ id: nextId, label: draft.label, price: draft.price, quantity: draft.quantity });
+    function getTicket(id: number): Ticket | undefined {
+        return tickets.value.find(ticket => ticket.id === id);
+    }
+
+    function addItem(ticketId: number, draft: TicketItemDraft): void {
+        const ticket = getTicket(ticketId);
+
+        if (ticket && draft.label && draft.price && draft.quantity) {
+            ticket.items.push({ id: nextId, label: draft.label, price: draft.price, quantity: draft.quantity });
             nextId++;
         }
     }
 
-    function editItem(id: number, draft: TicketItemDraft): void {
-        const item = getItemById(id);
+    function editItem(ticketId: number, itemId: number, draft: TicketItemDraft): void {
+        const ticket = getTicket(ticketId);
+        if (!ticket) { return; }
+        const item = ticket.items[itemId];
         if (!item) { return; }
 
         if (draft.label) { item.label = draft.label; }
@@ -30,17 +40,20 @@ export const useTicketsStore = defineStore("tickets", () => {
         if (draft.quantity) { item.quantity = draft.quantity; }
     }
 
-    function removeItem(id: number): void {
-        const index = items.value.findIndex(item => item.id === id);
+    function removeItem(ticketId: number, itemId: number): void {
+        const ticket = getTicket(ticketId);
+        if (!ticket) { return; }
 
-        if (index != undefined) {
-            items.value.splice(index, 1);
+        if (itemId < ticket.items.length) {
+            ticket.items.splice(itemId, 1);
         }
     }
 
     return {
+        tickets: readonly(tickets),
         items,
-        getItemById,
+        createTicket,
+        getTicket,
         addItem,
         editItem,
         removeItem,

@@ -1,19 +1,21 @@
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { type TicketItemDraft } from '@/models/TicketItem';
 import { useTicketsStore } from "@/stores/tickets.ts";
 import TicketItemForm from '@/components/TicketItemForm.vue';
 
 const router = useRouter();
+const route = useRoute();
+const ticketId = Number(route.params.id);
 const ticketsStore = useTicketsStore();
 
 function onCancelClick() {
-    router.push({ name: "tickets.edit" });
+    router.push({ name: "tickets.edit", params: { id: ticketId } });
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
-    ticketsStore.addItem(draft);
-    router.push({ name: "tickets.edit" });
+    ticketsStore.addItem(ticketId, draft);
+    router.push({ name: "tickets.edit", params: { id: ticketId } });
 }
 </script>
 

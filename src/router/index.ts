@@ -7,18 +7,22 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
         {
-            name: "items.home",
             path: "/",
+            redirect: { name: "tickets.edit" },
+        },
+        {
+            name: "tickets.edit",
+            path: "/tickets/:id?",
             component: CalculatorView,
         },
         {
             name: "items.add",
-            path: "/new-item",
+            path: "/tickets/:id/new-item",
             component: NewItemView,
         },
         {
             name: "items.edit",
-            path: "/edit-item/:id",
+            path: "/tickets/:ticketId/items/:itemId",
             component: EditItemView,
         }
     ],

@@ -1,28 +1,32 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
+import type { Ticket } from "@/models/Ticket.ts";
 import { ticketItemTotal } from "@/models/TicketItem.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
 import AppZoomControls from '@/components/AppZoomControls.vue';
 import DrawerNav from "@/components/DrawerNav.vue";
 
-const { open } = useDrawer();
-const router = useRouter();
-
 const { formatCurrency } = useNumberFormat('fr-FR');
 
+const { open } = useDrawer();
+const router = useRouter();
+const route = useRoute();
+
 const ticketsStore = useTicketsStore();
-const totalPrice = computed(() => ticketsStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+const _ticket = ticketsStore.getTicket(Number(route.params.id));
+const ticket = _ticket ? _ticket as Ticket : ticketsStore.createTicket();
+const totalPrice = computed(() => ticket.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
 function onAddItemClick() {
-    router.push({ name: "items.add" });
+    router.push({ name: "items.add", params: { id: ticket.id } });
 }
 
-function onEditItemClick(id: number) {
-    router.push({ name: "items.edit", params: { id } });
+function onEditItemClick(itemId: number) {
+    router.push({ name: "items.edit", params: { ticketId: ticket.id, itemId: itemId } });
 }
 </script>
 
@@ -38,14 +42,14 @@ function onEditItemClick(id: number) {
 	</div>
 
     <!-- New item Hero -->
-    <section v-if="ticketsStore.items.length == 0" class="new-item-hero">
+    <section v-if="ticket.items.length == 0" class="new-item-hero">
         <p>Aucun article pour le moment</p>
         <button class="btn" @click="onAddItemClick">Ajouter un article</button>
     </section>
     <template v-else>
         <!-- Ticket items list -->
         <section class="ticket-list list">
-            <div class="ticket-element list-item" v-for="item in ticketsStore.items" :key="item.id" @click="onEditItemClick(item.id)">
+            <div class="ticket-element list-item" v-for="(item, index) in ticket.items" :key="item.id" @click="onEditItemClick(index)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}
@@ -66,7 +70,7 @@ function onEditItemClick(id: number) {
 
     <!-- Bottom toolbar -->
     <div class="toolbar toolbar-fixed-bottom toolbar-primary">
-        <span>{{ ticketsStore.items.length }} articles</span>
+        <span>{{ ticket.items.length }} articles</span>
         <span class="toolbar-spacer"></span>
         <span class="items-total-price">{{ formatCurrency(totalPrice) }}</span>
     </div>

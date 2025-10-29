@@ -1,7 +1,8 @@
-export class Ticket {
-    constructor(
-        public id: number,
-        public created: Date,
-        public name?: string,
-    ) { }
+import type { TicketItem } from "./TicketItem";
+
+export interface Ticket {
+    id: number;
+    created: Date;
+    name?: string;
+    items: TicketItem[];
 }
