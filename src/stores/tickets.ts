@@ -20,8 +20,8 @@ const serializer = {
     },
 };
 
-export const useItemsStore = defineStore("items", () => {
-    const items = useLocalStorage<TicketItem[]>("ticket-items", [], { serializer });
+export const useItemsStore = defineStore("tickets", () => {
+    const items = useLocalStorage<TicketItem[]>("tickets", [], { serializer });
     let nextId = items.value.length > 0 ? Math.max(...items.value.map((item: any) => item.id)) + 1 : 1;
 
     function getItemById(id: number): TicketItem | undefined {

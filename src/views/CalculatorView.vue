@@ -4,10 +4,9 @@ import { useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
-import { useItemsStore } from "@/stores/items";
+import { useItemsStore } from "@/stores/tickets.ts";
 import AppZoomControls from '@/components/AppZoomControls.vue';
 import DrawerNav from "@/components/DrawerNav.vue";
-
 
 const { open } = useDrawer();
 const router = useRouter();
