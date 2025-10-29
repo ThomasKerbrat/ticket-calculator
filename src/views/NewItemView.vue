@@ -8,12 +8,12 @@ const router = useRouter();
 const ticketsStore = useTicketsStore();
 
 function onCancelClick() {
-    router.push({ name: "items.home" });
+    router.push({ name: "tickets.edit" });
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
     ticketsStore.addItem(draft);
-    router.push({ name: "items.home" });
+    router.push({ name: "tickets.edit" });
 }
 </script>
 

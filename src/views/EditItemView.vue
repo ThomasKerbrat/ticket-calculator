@@ -11,21 +11,21 @@ const itemId = Number(route.params.id);
 const item = ticketsStore.getItemById(itemId);
 
 if (item == undefined) {
-    router.replace({ name: "items.home" });
+    router.replace({ name: "tickets.edit" });
 }
 
 function onCancelClick() {
-    router.push({ name: "items.home" });
+    router.push({ name: "tickets.edit" });
 }
 
 function onFormSubmit(draft: TicketItemDraft) {
     ticketsStore.editItem(itemId, draft);
-    router.push({ name: "items.home" });
+    router.push({ name: "tickets.edit" });
 }
 
 function onDeleteClick() {
     ticketsStore.removeItem(itemId);
-    router.push({ name: "items.home" });
+    router.push({ name: "tickets.edit" });
 }
 </script>
 

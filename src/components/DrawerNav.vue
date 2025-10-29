@@ -14,7 +14,7 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 <template>
 	<section id="drawer-nav-stack">
 		<div class="list list-flush">
-			<span class="list-item list-item-action" @click="onLinkClick('items.home')">Ticket</span>
+			<span class="list-item list-item-action" @click="onLinkClick('tickets.edit')">Ticket</span>
 			<span class="list-item list-item-action" @click="onLinkClick('categories.home')">Catégories</span>
 		</div>
 		<div class="menu-header">Derniers tickets :</div>
