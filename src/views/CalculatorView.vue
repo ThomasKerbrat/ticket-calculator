@@ -6,6 +6,7 @@ import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useItemsStore } from "@/stores/items";
 import AppZoomControls from '@/components/AppZoomControls.vue';
+import DrawerNav from "@/components/DrawerNav.vue";
 
 
 const { open } = useDrawer();
@@ -28,7 +29,7 @@ function onEditItemClick(id: number) {
 <template>
     <!-- Top toolbar -->
 	<div class="toolbar toolbar-top toolbar-primary">
-		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: {}, title: 'Menu' })">
+		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: DrawerNav, title: 'Menu' })">
 			<use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#list"/>
 		</svg>
 		<span>Ticket</span>
@@ -48,7 +49,7 @@ function onEditItemClick(id: number) {
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}
-                    <span class="text-mutted" v-if="item.quantity > 1"> ({{ formatCurrency(item.price) }})</span>
+                    <span class="ticket-element-unit-price" v-if="item.quantity > 1"> ({{ formatCurrency(item.price) }})</span>
                 </div>
                 <div>{{ formatCurrency(item.total) }}</div>
             </div>
@@ -112,5 +113,8 @@ function onEditItemClick(id: number) {
 .ticket-element {
     display: flex;
     gap: 0.5rem;
+}
+.ticket-element-unit-price {
+    color: var(--text-mutted-color);
 }
 </style>

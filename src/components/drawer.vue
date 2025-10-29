@@ -11,8 +11,12 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 
 		<!-- Panel -->
 		<aside :class="['drawer', { 'drawer-open': isOpen }]">
-			<div class="drawer-header">
-				<i class="close-btn bi bi-x" @click="close"></i>
+			<div class="toolbar toolbar-top toolbar-primary">
+				<span class="btn btn-icon">
+					<svg class="bi" width="24" height="24" fill="currentColor" @click="close">
+						<use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#x"/>
+					</svg>
+				</span>
 				<h3 v-if="title">{{ title }}</h3>
 			</div>
 
@@ -49,29 +53,8 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 	box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.drawer-header {
-	padding: 0.5rem;
-	border-bottom: 1px solid #eee;
-	display: flex;
-	justify-content: start;
-	align-items: center;
-	gap: 1rem;
-	font-weight: 600;
-}
-
-.close-btn {
-	background: none;
-	border: none;
-	font-size: 1.5rem;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 .drawer-content {
 	flex: 1;
 	overflow-y: auto;
-	padding: 1rem;
 }
 </style>
