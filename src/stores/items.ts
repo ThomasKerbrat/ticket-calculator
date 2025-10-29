@@ -1,33 +1,28 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { TicketItem, type TicketItemDraft } from "@/models/TicketItem";
+import { useLocalStorage } from "@/composables/useLocalStorage";
 
-export const useItemsStore = defineStore("items", () => {
-    const items = ref<TicketItem[]>(_loadFromLocalStorage());
-    let nextId = items.value.length > 0 ? Math.max(...items.value.map((item: any) => item.id)) + 1 : 1;
-
-    function _loadFromLocalStorage(): TicketItem[] {
+const serializer = {
+    read(str: string) {
         const items: TicketItem[] = [];
+        let list;
 
-        const str = localStorage.getItem("ticket-items");
-        let json = null;
+        try {
+            list = JSON.parse(str);
 
-        if (str != null) {
-            try {
-                json = JSON.parse(str);
-
-                for (let item of json) {
-                    items.push(new TicketItem(item.id, item.label, item.price, item.quantity));
-                }
-            } catch { }
-        }
+            for (let item of list) {
+                items.push(new TicketItem(item.id, item.label, item.price, item.quantity));
+            }
+        } catch { }
 
         return items;
-    }
+    },
+};
 
-    function _saveToLocalStorage(): void {
-        localStorage.setItem("ticket-items", JSON.stringify(items.value));
-    }
+export const useItemsStore = defineStore("items", () => {
+    const items = useLocalStorage<TicketItem[]>("ticket-items", [], { serializer });
+    let nextId = items.value.length > 0 ? Math.max(...items.value.map((item: any) => item.id)) + 1 : 1;
 
     function getItemById(id: number): TicketItem | undefined {
         for (let item of items.value) {
@@ -40,8 +35,8 @@ export const useItemsStore = defineStore("items", () => {
     function addItem(draft: TicketItemDraft): void {
         if (draft.label && draft.price && draft.quantity) {
             items.value.push(new TicketItem(nextId, draft.label, draft.price, draft.quantity));
-            _saveToLocalStorage()
             nextId++;
+            console.log(items.value, nextId);
         }
     }
 
@@ -52,8 +47,6 @@ export const useItemsStore = defineStore("items", () => {
         if (draft.label) { item.label = draft.label; }
         if (draft.price) { item.price = draft.price; }
         if (draft.quantity) { item.quantity = draft.quantity; }
-
-        _saveToLocalStorage()
     }
 
     function removeItem(id: number): void {
@@ -61,7 +54,6 @@ export const useItemsStore = defineStore("items", () => {
 
         if (index != undefined) {
             items.value.splice(index, 1);
-            _saveToLocalStorage()
         }
     }
 
