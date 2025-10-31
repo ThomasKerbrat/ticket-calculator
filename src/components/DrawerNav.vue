@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import { useDrawer } from '@/composables/useDrawer';
+import { computed } from "vue";
 import { useRouter, type RouteParamsRawGeneric, type RouteRecordNameGeneric } from 'vue-router';
+import { useDrawer } from '@/composables/useDrawer';
+import { useTicketsStore } from '@/stores/tickets';
+import type { Ticket } from "@/models/Ticket";
 
 const router = useRouter();
 const drawer = useDrawer();
+const ticketsStore = useTicketsStore();
+
+const lastThreeTickets = ticketsStore.getLastNTickets(3);
 
 function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParamsRawGeneric) {
 	drawer.close();
@@ -19,9 +25,13 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 		</div>
 		<div class="menu-header">Derniers tickets :</div>
 		<div class="list list-flush">
-			<span class="list-item list-item-action" @click="onLinkClick('tickets.home', { id: null })">01/02/0304</span>
-			<span class="list-item list-item-action">01/02/0304</span>
-			<span class="list-item list-item-action">01/02/0304</span>
+			<span
+				v-for="ticket in lastThreeTickets"
+				class="list-item list-item-action"
+				@click="onLinkClick('tickets.edit', { id: ticket.id })"
+			>
+				{{ ticket.created }}
+			</span>
 			<span class="list-item list-item-action" @click="onLinkClick('tickets.home')">Tous les tickets</span>
 		</div>
 	</section>

@@ -1,4 +1,4 @@
-import { readonly } from "vue";
+import { computed, readonly, type ComputedRef } from "vue";
 import { defineStore } from "pinia";
 
 import type { Ticket } from "@/models/Ticket.ts";
@@ -20,12 +20,19 @@ export const useTicketsStore = defineStore("tickets", () => {
         return tickets.value.find(ticket => ticket.id === id);
     }
 
+    function getLastNTickets(quantity: number): ComputedRef<Ticket[]> {
+        if (quantity <= tickets.value.length) {
+            return computed(() => (tickets.value));
+        } else {
+            return computed(() => (tickets.value.filter((_, index) => index >= tickets.value.length - quantity)));
+        }
+    }
+
     function addItem(ticketId: number, draft: TicketItemDraft): void {
         const ticket = getTicket(ticketId);
 
         if (ticket && draft.label && draft.price && draft.quantity) {
-            ticket.items.push({ id: nextId, label: draft.label, price: draft.price, quantity: draft.quantity });
-            nextId++;
+            ticket.items.push({ label: draft.label, price: draft.price, quantity: draft.quantity });
         }
     }
 
@@ -54,6 +61,7 @@ export const useTicketsStore = defineStore("tickets", () => {
         items,
         createTicket,
         getTicket,
+        getLastNTickets,
         addItem,
         editItem,
         removeItem,

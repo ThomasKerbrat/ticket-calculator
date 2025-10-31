@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
@@ -17,16 +17,37 @@ const router = useRouter();
 const route = useRoute();
 
 const ticketsStore = useTicketsStore();
-const _ticket = ticketsStore.getTicket(Number(route.params.id));
-const ticket = _ticket ? _ticket as Ticket : ticketsStore.createTicket();
-const totalPrice = computed(() => ticket.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+const ticket = ref(tryGetOrCreateTicket(Number(route.params.id)));
+const totalPrice = computed(() => ticket.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+
+watch(
+    () => route.params.id,
+    (id) => {
+        ticket.value = tryGetOrCreateTicket(Number(id))
+    },
+);
+
+function tryGetOrCreateTicket(id: number): Ticket {
+    const maybeTicket = ticketsStore.getTicket(id);
+
+    if (maybeTicket) {
+        return maybeTicket;
+    } else {
+        return ticketsStore.createTicket();
+    }
+}
+
+function onNewTicketClick() {
+    ticket.value = ticketsStore.createTicket();
+    router.push({ name: "tickets.edit", params: { id: ticket.value.id } });
+}
 
 function onAddItemClick() {
-    router.push({ name: "items.add", params: { id: ticket.id } });
+    router.push({ name: "items.add", params: { id: ticket.value.id } });
 }
 
 function onEditItemClick(itemId: number) {
-    router.push({ name: "items.edit", params: { ticketId: ticket.id, itemId: itemId } });
+    router.push({ name: "items.edit", params: { ticketId: ticket.value.id, itemId: itemId } });
 }
 </script>
 
@@ -38,18 +59,19 @@ function onEditItemClick(itemId: number) {
 		</svg>
 		<span>Ticket</span>
 		<span class="toolbar-spacer"></span>
-		<AppZoomControls></AppZoomControls>
+		<!-- <AppZoomControls></AppZoomControls> -->
+        <span v-if="ticket.items.length > 0" class="btn btn-secondary" @click="onNewTicketClick">Nouveau ticket</span>
 	</div>
 
     <!-- New item Hero -->
     <section v-if="ticket.items.length == 0" class="new-item-hero">
         <p>Aucun article pour le moment</p>
-        <button class="btn" @click="onAddItemClick">Ajouter un article</button>
+        <button class="btn btn-primary" @click="onAddItemClick">Ajouter un article</button>
     </section>
     <template v-else>
         <!-- Ticket items list -->
         <section class="ticket-list list">
-            <div class="ticket-element list-item" v-for="(item, index) in ticket.items" :key="item.id" @click="onEditItemClick(index)">
+            <div class="ticket-element list-item" v-for="(item, index) in ticket.items" @click="onEditItemClick(index)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}

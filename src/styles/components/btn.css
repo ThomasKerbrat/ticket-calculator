@@ -14,6 +14,14 @@
 	padding: 0;
 }
 
+.btn-primary {
+	background-color: hsl(240deg, 100%, 80%);
+}
+
+.btn-secondary {
+	background-color: hsl(120deg, 100%, 90%);
+}
+
 .btn-danger {
 	background-color: hsl(0deg, 100%, 90%);
 }

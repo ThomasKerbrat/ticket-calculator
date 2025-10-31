@@ -1,5 +1,4 @@
 export interface TicketItem {
-    id: number;
     label: string;
     price: number;
     quantity: number;
@@ -11,7 +10,6 @@ export function ticketItemTotal(item: TicketItem) {
 }
 
 export interface TicketItemDraft {
-    id?: number;
     label?: string;
     price?: number;
     quantity?: number;
