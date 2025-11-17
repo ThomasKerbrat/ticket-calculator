@@ -8,6 +8,14 @@ export class Ticket {
         public name?: string,
     ) { }
 
+    get totalPrice() {
+        return this.items.reduce((price, item) => price += item.total, 0);
+    }
+
+    get totalQuantity() {
+        return this.items.reduce((quantity, item) => quantity += item.quantity, 0);
+    }
+
     static fromJSON(data: any): Ticket {
         const id = Number(data.id);
         const created = new Date(data.created);

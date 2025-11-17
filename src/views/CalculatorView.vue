@@ -6,7 +6,6 @@ import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { Ticket } from "@/models/Ticket.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
-import AppZoomControls from '@/components/AppZoomControls.vue';
 import DrawerNav from "@/components/DrawerNav.vue";
 
 const { formatCurrency } = useNumberFormat('fr-FR');
@@ -91,9 +90,9 @@ function onEditItemClick(itemId: number) {
 
     <!-- Bottom toolbar -->
     <div class="toolbar toolbar-fixed-bottom toolbar-primary">
-        <span>{{ ticket.items.length }} articles</span>
+        <span>{{ ticket.totalQuantity }} articles</span>
         <span class="toolbar-spacer"></span>
-        <span class="items-total-price">{{ formatCurrency(totalPrice) }}</span>
+        <span class="items-total-price">{{ formatCurrency(ticket.totalPrice) }}</span>
     </div>
 </template>
 

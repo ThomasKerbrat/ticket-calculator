@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { useRouter, type RouteParamsRawGeneric, type RouteRecordNameGeneric } from 'vue-router';
 import { useDrawer } from '@/composables/useDrawer';
+import { useDateTimeFormat } from "@/composables/useDateTimeFormat";
+import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useTicketsStore } from '@/stores/tickets';
-import type { Ticket } from "@/models/Ticket";
 
 const router = useRouter();
 const drawer = useDrawer();
+const { formatDateTime } = useDateTimeFormat();
+const { formatCurrency } = useNumberFormat('fr-FR');
 const ticketsStore = useTicketsStore();
 
 const lastThreeTickets = ticketsStore.getLastNTickets(3);
@@ -30,7 +32,12 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 				class="list-item list-item-action"
 				@click="onLinkClick('tickets.edit', { id: ticket.id })"
 			>
-				{{ ticket.created }}
+				<span style="display: flex; flex-direction: row; gap: var(--size-050);">
+					<span>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
+					<span style="color: #777">{{ ticket.totalQuantity }} articles</span>
+					<span style="flex-grow: 1;"></span>
+					<span>{{ formatCurrency(ticket.totalPrice) }}</span>
+				</span>
 			</span>
 			<span class="list-item list-item-action" @click="onLinkClick('tickets.home')">Tous les tickets</span>
 		</div>
