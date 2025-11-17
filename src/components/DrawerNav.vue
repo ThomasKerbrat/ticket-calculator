@@ -21,10 +21,6 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 
 <template>
 	<section id="drawer-nav-stack">
-		<div class="list list-flush">
-			<span class="list-item list-item-action" @click="onLinkClick('tickets.edit')">Ticket</span>
-			<span class="list-item list-item-action" @click="onLinkClick('categories.home')">Catégories</span>
-		</div>
 		<div class="menu-header">Derniers tickets :</div>
 		<div class="list list-flush">
 			<span
@@ -39,7 +35,11 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 					<span>{{ formatCurrency(ticket.totalPrice) }}</span>
 				</span>
 			</span>
-			<span class="list-item list-item-action" @click="onLinkClick('tickets.home')">Tous les tickets</span>
+			<span class="list-item list-item-action" @click="onLinkClick('tickets.list')">Tous les tickets</span>
+		</div>
+		<div class="menu-header">Configuration :</div>
+		<div class="list list-flush">
+			<span class="list-item list-item-action" @click="onLinkClick('categories.home')">Catégories</span>
 		</div>
 	</section>
 </template>
@@ -49,7 +49,6 @@ section#drawer-nav-stack {
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-	margin-top: var(--size-100);
 }
 
 .list {
@@ -57,7 +56,7 @@ section#drawer-nav-stack {
 }
 
 .menu-header {
-	margin-top: var(--size-100);
+	margin-top: var(--size-200);
 	margin-bottom: var(--size-050);
 	padding-left: var(--size-100);
 	font-size: calc(var(--size-100) * 0.9);

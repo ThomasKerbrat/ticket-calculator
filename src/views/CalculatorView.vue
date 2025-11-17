@@ -53,7 +53,7 @@ function onEditItemClick(itemId: number) {
     <!-- Top toolbar -->
 	<div class="toolbar toolbar-top toolbar-primary">
 		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: DrawerNav, title: 'Menu' })">
-			<use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#list"/>
+			<use xlink:href="@bi#list"/>
 		</svg>
 		<span>Ticket</span>
 		<span class="toolbar-spacer"></span>

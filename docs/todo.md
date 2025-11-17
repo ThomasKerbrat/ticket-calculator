@@ -2,7 +2,7 @@
 - [x] Déplacer le prix total en bas de la page
 - [x] Ajouter un menu en haut à gauche pour accéder à la liste des tickets et des catégories
 - [x] Remettre des classes et la logique de dé-sérialisation
-- [ ] Ajouter une route qui liste les tickets
+- [x] Ajouter une route qui liste les tickets
 - [x] Ajouter un bouton sur la page des articles pour créer un nouveau ticket
 - [ ] Ajouter des catégories aux articles
 - [ ] Lors du premier lancement, afficher une page d'onboarding où on peut choisir sa région, son pays et sa devise

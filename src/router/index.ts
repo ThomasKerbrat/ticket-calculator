@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import ListTicketsView from "@/views/ListTicketsView.vue";
 import CalculatorView from "@/views/CalculatorView.vue";
 import NewItemView from "@/views/NewItemView.vue";
 import EditItemView from "@/views/EditItemView.vue";
@@ -8,11 +9,16 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            redirect: { name: "tickets.edit" },
+            redirect: { name: "tickets.list" },
+        },
+        {
+            name: "tickets.list",
+            path: "/tickets",
+            component: ListTicketsView,
         },
         {
             name: "tickets.edit",
-            path: "/tickets/:id?",
+            path: "/tickets/:id",
             component: CalculatorView,
         },
         {
