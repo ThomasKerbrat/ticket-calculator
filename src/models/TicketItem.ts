@@ -1,12 +1,21 @@
-export interface TicketItem {
-    label: string;
-    price: number;
-    quantity: number;
-    categoryId?: number;
-}
+export class TicketItem {
+    constructor(
+        public label: string,
+        public price: number,
+        public quantity: number,
+        public categoryId?: number,
+    ) { }
 
-export function ticketItemTotal(item: TicketItem) {
-    return item.price * item.quantity;
+    get total() {
+        return this.price * this.quantity;
+    }
+
+    static fromJSON(data: any): TicketItem {
+        const price = Number(data.price);
+        const quantity = Number(data.quantity);
+        const categoryId = Number(data.categoryId);
+        return new TicketItem(data.label, price, quantity, categoryId);
+    }
 }
 
 export interface TicketItemDraft {

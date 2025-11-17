@@ -1,6 +1,7 @@
 - [x] Ajouter les modèles Ticket et Category
 - [x] Déplacer le prix total en bas de la page
 - [x] Ajouter un menu en haut à gauche pour accéder à la liste des tickets et des catégories
+- [x] Remettre des classes et la logique de dé-sérialisation
 - [ ] Ajouter une route qui liste les tickets
 - [x] Ajouter un bouton sur la page des articles pour créer un nouveau ticket
 - [ ] Ajouter des catégories aux articles

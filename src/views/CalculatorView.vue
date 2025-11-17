@@ -4,8 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
-import type { Ticket } from "@/models/Ticket.ts";
-import { ticketItemTotal } from "@/models/TicketItem.ts";
+import { Ticket } from "@/models/Ticket.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
 import AppZoomControls from '@/components/AppZoomControls.vue';
 import DrawerNav from "@/components/DrawerNav.vue";
@@ -77,7 +76,7 @@ function onEditItemClick(itemId: number) {
                     {{ item.label }}
                     <span class="ticket-element-unit-price" v-if="item.quantity > 1"> ({{ formatCurrency(item.price) }})</span>
                 </div>
-                <div>{{ formatCurrency(ticketItemTotal(item)) }}</div>
+                <div>{{ formatCurrency(item.total) }}</div>
             </div>
         </section>
 

@@ -1,19 +1,26 @@
 import { computed, readonly, type ComputedRef } from "vue";
 import { defineStore } from "pinia";
 
-import type { Ticket } from "@/models/Ticket.ts";
-import type { TicketItem, TicketItemDraft } from "@/models/TicketItem.ts";
+import { Ticket } from "@/models/Ticket.ts";
+import { TicketItem, type TicketItemDraft } from "@/models/TicketItem.ts";
 import { useLocalStorage } from "@/composables/useLocalStorage";
 
+function ticketReadSerialize(raw: string): Ticket[] {
+    const rawArray: any[] = JSON.parse(raw);
+    const dataArray: Ticket[] = rawArray.map(item => Ticket.fromJSON(item));
+    return dataArray;
+}
+
 export const useTicketsStore = defineStore("tickets", () => {
-    const tickets = useLocalStorage<Ticket[]>("tickets", []);
+    const tickets = useLocalStorage<Ticket[]>("tickets", [], { serializer: { read: ticketReadSerialize } });
     const items = useLocalStorage<TicketItem[]>("tickets", []);
     let nextId = tickets.value.length > 0 ? Math.max(...tickets.value.map((ticket: any) => ticket.id)) + 1 : 1;
 
     function createTicket(): Ticket {
-        tickets.value.push({ id: nextId, created: new Date(), items: [] });
+        const ticket = new Ticket(nextId, new Date(), []);
+        tickets.value.push(ticket);
         nextId++;
-        return tickets.value[tickets.value.length - 1]!;
+        return ticket;
     }
 
     function getTicket(id: number): Ticket | undefined {
@@ -32,7 +39,8 @@ export const useTicketsStore = defineStore("tickets", () => {
         const ticket = getTicket(ticketId);
 
         if (ticket && draft.label && draft.price && draft.quantity) {
-            ticket.items.push({ label: draft.label, price: draft.price, quantity: draft.quantity });
+            const item = new TicketItem(draft.label, draft.price, draft.quantity);
+            ticket.items.push(item);
         }
     }
 
