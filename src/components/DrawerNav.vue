@@ -29,7 +29,8 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 				@click="onLinkClick('tickets.edit', { id: ticket.id })"
 			>
 				<span style="display: flex; flex-direction: row; gap: var(--size-050);">
-					<span>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
+					<span v-if="ticket.name">{{ ticket.name }}</span>
+					<span v-else>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
 					<span style="color: #777">{{ ticket.totalQuantity }} articles</span>
 					<span style="flex-grow: 1;"></span>
 					<span>{{ formatCurrency(ticket.totalPrice) }}</span>

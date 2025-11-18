@@ -27,6 +27,12 @@ export const useTicketsStore = defineStore("tickets", () => {
         return tickets.value.find(ticket => ticket.id === id);
     }
 
+    function editTicket(ticketId: number, name: string): void {
+        const ticket = getTicket(ticketId);
+        if (!ticket) { return; }
+        ticket.name = name;
+    }
+
     function getLastNTickets(quantity: number): ComputedRef<Ticket[]> {
         if (quantity <= tickets.value.length) {
             return computed(() => (tickets.value));
@@ -69,6 +75,7 @@ export const useTicketsStore = defineStore("tickets", () => {
         items,
         createTicket,
         getTicket,
+        editTicket,
         getLastNTickets,
         addItem,
         editItem,

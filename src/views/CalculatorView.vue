@@ -8,6 +8,7 @@ import { Ticket } from "@/models/Ticket.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
 // import AppZoomControls from "@/components/AppZoomControls.vue";
 import DrawerNav from "@/components/DrawerNav.vue";
+import TicketNameInlineForm from "@/components/TicketNameInlineForm.vue";
 
 const { formatCurrency } = useNumberFormat('fr-FR');
 
@@ -18,6 +19,8 @@ const route = useRoute();
 const ticketsStore = useTicketsStore();
 const ticket = ref(tryGetOrCreateTicket(Number(route.params.id)));
 const totalPrice = computed(() => ticket.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
+
+const editingTicketName = ref(false);
 
 watch(
     () => route.params.id,
@@ -34,6 +37,11 @@ function tryGetOrCreateTicket(id: number): Ticket {
     } else {
         return ticketsStore.createTicket();
     }
+}
+
+function onTicketNameSubmit(name: string) {
+    ticketsStore.editTicket(ticket.value.id, name);
+    editingTicketName.value = false;
 }
 
 function onNewTicketClick() {
@@ -54,10 +62,17 @@ function onEditItemClick(itemId: number) {
     <!-- Top toolbar -->
 	<div class="toolbar toolbar-top toolbar-primary">
         <bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
-		<span>Ticket</span>
-		<span class="toolbar-spacer"></span>
-		<!-- <AppZoomControls></AppZoomControls> -->
-        <span v-if="ticket.items.length > 0" class="btn btn-secondary" @click="onNewTicketClick">Nouveau ticket</span>
+        <template v-if="editingTicketName == false">
+            <span>{{ ticket.name || "Ticket" }}</span>
+            <bi icon="pencil" :width="16" :height="16" @click="editingTicketName = true" />
+            <span class="toolbar-spacer"></span>
+            <!-- <AppZoomControls></AppZoomControls> -->
+            <!-- <span v-if="ticket.items.length > 0" class="btn btn-secondary" @click="onNewTicketClick">Nouveau ticket</span> -->
+            <bi icon="three-dots-vertical" :width="20" :height="20" />
+        </template>
+        <template v-else>
+            <TicketNameInlineForm style="flex-grow: 1;" :name="ticket.name" @submit="onTicketNameSubmit" @cancel="editingTicketName = false" />
+        </template>
 	</div>
 
     <!-- New item Hero -->
@@ -86,7 +101,7 @@ function onEditItemClick(itemId: number) {
 
     <!-- Bottom toolbar -->
     <div class="toolbar toolbar-fixed-bottom toolbar-primary">
-        <span>{{ ticket.totalQuantity }} articles</span>
+        <span>{{ ticket.items.length }} lignes - {{ ticket.totalQuantity }} articles</span>
         <span class="toolbar-spacer"></span>
         <span class="items-total-price">{{ formatCurrency(ticket.totalPrice) }}</span>
     </div>

@@ -35,7 +35,8 @@ function onTicketClick(id: number) {
 	<main>
 		<section class="list">
 			<div class="list-item" style="display: flex; gap: var(--size-050);" v-for="ticket in tickets" @click="onTicketClick(ticket.id)">
-				<span>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
+				<span v-if="ticket.name">{{ ticket.name }}</span>
+				<span v-else>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
 				<span style="color: #777;">{{ ticket.totalQuantity }} article(s)</span>
 				<span style="flex-grow: 1;"></span>
 				<span>{{ formatCurrency(ticket.totalPrice) }}</span>
