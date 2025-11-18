@@ -13,9 +13,7 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 		<aside :class="['drawer', { 'drawer-open': isOpen }]">
 			<div class="toolbar toolbar-top toolbar-primary">
 				<span class="btn btn-icon">
-					<svg class="bi" width="24" height="24" fill="currentColor" @click="close">
-						<use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#x"/>
-					</svg>
+					<bi icon="x" @click="close" />
 				</span>
 				<h3 v-if="title">{{ title }}</h3>
 			</div>

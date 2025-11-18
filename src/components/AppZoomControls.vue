@@ -15,9 +15,9 @@ function onZoomOutClick() {
 
 <template>
 	<section class="app-zoom-controls">
-		<i class="bi bi-zoom-out" @click="onZoomOutClick"></i>
+		<bi icon="zoom-out" @click="onZoomOutClick" />
 		<span>{{ rootRem }}</span>
-		<i class="bi bi-zoom-in" @click="onZoomInClick"></i>
+		<bi icon="zoom-in" @click="onZoomInClick" />
 	</section>
 </template>
 

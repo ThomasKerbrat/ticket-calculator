@@ -4,6 +4,7 @@
 - [x] Remettre des classes et la logique de dé-sérialisation
 - [x] Ajouter une route qui liste les tickets
 - [x] Ajouter un bouton sur la page des articles pour créer un nouveau ticket
+- [ ] Prendre en compte le nom du ticket
 - [ ] Ajouter des catégories aux articles
 - [ ] Lors du premier lancement, afficher une page d'onboarding où on peut choisir sa région, son pays et sa devise
 

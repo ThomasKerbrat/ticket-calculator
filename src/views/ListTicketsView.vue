@@ -27,9 +27,7 @@ function onTicketClick(id: number) {
 <template>
 	<!-- Top toolbar -->
 	<div class="toolbar toolbar-top toolbar-primary">
-		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: DrawerNav, title: 'Menu' })">
-			<use xlink:href="@bi#list"/>
-		</svg>
+		<bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<span>Tickets</span>
 		<!-- <span class="toolbar-spacer"></span> -->
 	</div>

@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@bi': fileURLToPath(new URL('./node_modules/bootstrap-icons/bootstrap-icons.svg', import.meta.url)),
+      '@bi': fileURLToPath(new URL('./node_modules/bootstrap-icons', import.meta.url)),
     },
   },
 })

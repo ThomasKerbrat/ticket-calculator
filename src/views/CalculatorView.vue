@@ -6,6 +6,7 @@ import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { Ticket } from "@/models/Ticket.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
+// import AppZoomControls from "@/components/AppZoomControls.vue";
 import DrawerNav from "@/components/DrawerNav.vue";
 
 const { formatCurrency } = useNumberFormat('fr-FR');
@@ -52,9 +53,7 @@ function onEditItemClick(itemId: number) {
 <template>
     <!-- Top toolbar -->
 	<div class="toolbar toolbar-top toolbar-primary">
-		<svg class="bi" width="24" height="24" fill="currentColor" @click="open({ component: DrawerNav, title: 'Menu' })">
-			<use xlink:href="@bi#list"/>
-		</svg>
+        <bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<span>Ticket</span>
 		<span class="toolbar-spacer"></span>
 		<!-- <AppZoomControls></AppZoomControls> -->
@@ -80,11 +79,8 @@ function onEditItemClick(itemId: number) {
         </section>
 
         <!-- Floating action button -->
-        <!-- <i class="new-item bi bi-plus" @click="onAddItemClick"></i> -->
         <span class="new-item btn btn-icon" @click="onAddItemClick">
-            <svg class="bi" width="24" height="24" fill="currentColor">
-                <use xlink:href="../../node_modules/bootstrap-icons/bootstrap-icons.svg#plus"/>
-            </svg>
+            <bi icon="plus" />
         </span>
     </template>
 
