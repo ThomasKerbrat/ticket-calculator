@@ -33,6 +33,13 @@ export const useTicketsStore = defineStore("tickets", () => {
         ticket.name = name;
     }
 
+    function deleteTicket(ticketId: number): void {
+        const ticket = getTicket(ticketId);
+        if (!ticket) { return; }
+        const index = tickets.value.findIndex(candidate => candidate.id == ticket.id);
+        tickets.value.splice(index, 1);
+    }
+
     function getLastNTickets(quantity: number): ComputedRef<Ticket[]> {
         if (quantity <= tickets.value.length) {
             return computed(() => (tickets.value));
@@ -76,6 +83,7 @@ export const useTicketsStore = defineStore("tickets", () => {
         createTicket,
         getTicket,
         editTicket,
+        deleteTicket,
         getLastNTickets,
         addItem,
         editItem,

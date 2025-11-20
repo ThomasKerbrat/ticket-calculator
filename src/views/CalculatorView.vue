@@ -21,6 +21,7 @@ const ticket = ref(tryGetOrCreateTicket(Number(route.params.id)));
 const totalPrice = computed(() => ticket.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
 const editingTicketName = ref(false);
+const morePopoverShow = ref(false);
 
 watch(
     () => route.params.id,
@@ -42,6 +43,15 @@ function tryGetOrCreateTicket(id: number): Ticket {
 function onTicketNameSubmit(name: string) {
     ticketsStore.editTicket(ticket.value.id, name);
     editingTicketName.value = false;
+}
+
+function togglePopoverShow() {
+    morePopoverShow.value = !morePopoverShow.value;
+}
+
+function deleteTicket() {
+    ticketsStore.deleteTicket(ticket.value.id);
+    router.push({ name: "tickets.list" });
 }
 
 function onNewTicketClick() {
@@ -68,7 +78,14 @@ function onEditItemClick(itemId: number) {
             <span class="toolbar-spacer"></span>
             <!-- <AppZoomControls></AppZoomControls> -->
             <!-- <span v-if="ticket.items.length > 0" class="btn btn-secondary" @click="onNewTicketClick">Nouveau ticket</span> -->
-            <bi icon="three-dots-vertical" :width="20" :height="20" />
+            <div class="popover-container">
+                <bi icon="three-dots-vertical" :width="20" :height="20" @click="togglePopoverShow" />
+                <div class="popover-content" :class="{ 'show': morePopoverShow }">
+                    <div class="list">
+                        <div class="list-item" @click="deleteTicket">Supprimer</div>
+                    </div>
+                </div>
+            </div>
         </template>
         <template v-else>
             <TicketNameInlineForm style="flex-grow: 1;" :name="ticket.name" @submit="onTicketNameSubmit" @cancel="editingTicketName = false" />
@@ -151,5 +168,18 @@ function onEditItemClick(itemId: number) {
 }
 .ticket-element-unit-price {
     color: var(--text-mutted-color);
+}
+
+.popover-container {
+    position: relative;
+}
+.popover-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+}
+.popover-content.show {
+    display: block;
 }
 </style>

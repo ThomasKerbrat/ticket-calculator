@@ -11,16 +11,24 @@ const router = useRouter();
 const { tickets, createTicket } = useTicketsStore();
 
 if (tickets.length === 0) {
-	const ticket = createTicket();
-	router.push({ name: "tickets.edit", params: { id: ticket.id }});
+	createTicketAndNavigateToTicketEdit();
 }
 
 const { open } = useDrawer();
 const { formatDateTime } = useDateTimeFormat("fr-FR");
 const { formatCurrency } = useNumberFormat('fr-FR');
 
+function createTicketAndNavigateToTicketEdit() {
+	const ticket = createTicket();
+	router.push({ name: "tickets.edit", params: { id: ticket.id }});
+}
+
 function onTicketClick(id: number) {
 	router.push({ name: "tickets.edit", params: { id }});
+}
+
+function onNewTicketClick() {
+	createTicketAndNavigateToTicketEdit();
 }
 </script>
 
@@ -43,10 +51,24 @@ function onTicketClick(id: number) {
 			</div>
 		</section>
 	</main>
+
+	<div id="new-ticket">
+		<span class="btn btn-primary" @click="onNewTicketClick">Nouveau ticket</span>
+	</div>
 </template>
 
 <style scoped>
 main {
 	margin: var(--size-100);
+}
+
+#new-ticket {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	padding: var(--size-100);
+}
+#new-ticket > .btn {
+	width: 100%;
 }
 </style>
