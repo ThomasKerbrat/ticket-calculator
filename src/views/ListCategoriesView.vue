@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useDrawer } from '@/composables/useDrawer';
 import { useCategoryStore } from '@/stores/category';
 import DrawerNav from "@/components/DrawerNav.vue";
@@ -7,6 +7,30 @@ import DrawerNav from "@/components/DrawerNav.vue";
 const { open } = useDrawer();
 const categoriesStore = useCategoryStore();
 const categoryName = ref("");
+
+const editedCategoryIndex = ref(-1);
+const editedCategoryMap = computed(() => categoriesStore.categories.map((_, index) => editedCategoryIndex.value == index));
+const editedCategoryName = ref("");
+
+function toggleEdit(index: number) {
+	if (editedCategoryIndex.value == index) {
+		editedCategoryIndex.value = -1;
+		editedCategoryName.value = "";
+	} else {
+		editedCategoryIndex.value = index;
+		editedCategoryName.value = categoriesStore.categories[editedCategoryIndex.value]!.name;
+	}
+}
+
+function onCategoryNameSubmit() {
+	categoriesStore.editCategory(categoriesStore.categories[editedCategoryIndex.value]!.id, editedCategoryName.value);
+	toggleEdit(editedCategoryIndex.value);
+}
+
+function onCategoryDelete(index: number) {
+	toggleEdit(index);
+	categoriesStore.deleteCategory(index);
+}
 
 function onSubmit() {
 	if (categoryName.value.length === 0) { return; }
@@ -26,10 +50,20 @@ function onSubmit() {
 		<!-- list -->
 		<div id="categories-list" class="list" v-if="categoriesStore.categories.length > 0">
 			<div class="list-item" v-for="(cat, index) in categoriesStore.categories">
-				<span>{{ cat.name }}</span>
-				<span class="spacer"></span>
-				<bi icon="chevron-up" @click="categoriesStore.moveUp(cat.id)" :class="{ 'muted': index == 0 }"/>
-				<bi icon="chevron-down" @click="categoriesStore.moveDown(cat.id)" :class="{ 'muted': index == categoriesStore.categories.length - 1 }"/>
+				<template v-if="editedCategoryMap[index] == false">
+					<span @click="toggleEdit(index)">{{ cat.name }}</span>
+					<span class="spacer"></span>
+					<bi icon="chevron-up" @click="categoriesStore.moveUp(cat.id)" :class="{ 'muted': index == 0 }"/>
+					<bi icon="chevron-down" @click="categoriesStore.moveDown(cat.id)" :class="{ 'muted': index == categoriesStore.categories.length - 1 }"/>
+				</template>
+				<template v-else>
+					<bi icon="trash" @click="onCategoryDelete(index)" />
+					<form @submit.prevent="onCategoryNameSubmit">
+						<input autofocus v-model="editedCategoryName">
+					</form>
+					<bi icon="check2" @click="onCategoryNameSubmit" />
+					<bi icon="x" @click="toggleEdit(index)" />
+				</template>
 			</div>
 		</div>
 
@@ -57,7 +91,12 @@ main {
 }
 #categories-list .list-item {
 	display: flex;
+	align-items: center;
 	gap: var(--size-050);
+}
+#categories-list .list-item form {
+	flex-grow: 1;
+	margin-left: var(--size-050);
 }
 #categories-list .muted {
 	color: var(--text-disabled-color);

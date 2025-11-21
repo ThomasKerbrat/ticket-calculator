@@ -18,6 +18,17 @@ export const useCategoryStore = defineStore("categories", () => {
 		nextId++;
 	}
 
+	function editCategory(id: number, name: string): void {
+		const index = categories.value.findIndex(cat => cat.id == id);
+		if (index == -1) { return; }
+		categories.value[index]!.name = name;
+	}
+
+	function deleteCategory(index: number): void {
+		if (index == -1) { return; }
+		categories.value.splice(index, 1);
+	}
+
 	function moveUp(id: number) {
 		const index = categories.value.findIndex(cat => cat.id == id);
 		if (index == -1 || index == 0) { return; }
@@ -35,6 +46,8 @@ export const useCategoryStore = defineStore("categories", () => {
 	return {
 		categories,
 		createCategory,
+		editCategory,
+		deleteCategory,
 		moveUp,
 		moveDown,
 	};
