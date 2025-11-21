@@ -42,9 +42,9 @@ export const useTicketsStore = defineStore("tickets", () => {
 
     function getLastNTickets(quantity: number): ComputedRef<Ticket[]> {
         if (quantity >= tickets.value.length) {
-            return computed(() => (tickets.value));
+            return computed(() => (tickets.value.filter(() => true).reverse()));
         } else {
-            return computed(() => (tickets.value.filter((_, index) => index >= tickets.value.length - quantity)));
+            return computed(() => (tickets.value.filter((_, index) => index >= tickets.value.length - quantity).reverse()));
         }
     }
 

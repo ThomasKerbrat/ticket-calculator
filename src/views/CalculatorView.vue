@@ -100,7 +100,7 @@ function onEditItemClick(itemId: number) {
     <template v-else>
         <!-- Ticket items list -->
         <section class="ticket-list list">
-            <div class="ticket-element list-item" v-for="(item, index) in ticket.items" @click="onEditItemClick(index)">
+            <div class="ticket-element list-item list-item-action" v-for="(item, index) in ticket.items" @click="onEditItemClick(index)">
                 <div>{{ item.quantity }}</div>
                 <div style="flex-grow: 1;">
                     {{ item.label }}

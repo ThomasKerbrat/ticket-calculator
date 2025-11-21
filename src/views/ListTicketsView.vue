@@ -1,16 +1,17 @@
 <script lang="ts" setup>
-import { useRoute, useRouter } from 'vue-router';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 import { useDrawer } from '@/composables/useDrawer';
 import { useDateTimeFormat } from "@/composables/useDateTimeFormat.ts"
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { useTicketsStore } from "@/stores/tickets.ts";
 import DrawerNav from "@/components/DrawerNav.vue";
 
-const route = useRoute();
 const router = useRouter();
-const { tickets, createTicket } = useTicketsStore();
+const { tickets: _tickets, createTicket } = useTicketsStore();
+const tickets = computed(() => _tickets.filter(() => true).reverse());
 
-if (tickets.length === 0) {
+if (tickets.value.length === 0) {
 	createTicketAndNavigateToTicketEdit();
 }
 
@@ -42,7 +43,7 @@ function onNewTicketClick() {
 
 	<main>
 		<section class="list">
-			<div class="list-item" style="display: flex; gap: var(--size-050);" v-for="ticket in tickets" @click="onTicketClick(ticket.id)">
+			<div class="list-item list-item-action" style="display: flex; gap: var(--size-050);" v-for="ticket in tickets" @click="onTicketClick(ticket.id)">
 				<span v-if="ticket.name">{{ ticket.name }}</span>
 				<span v-else>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
 				<span style="color: #777;">{{ ticket.totalQuantity }} article(s)</span>
