@@ -70,7 +70,7 @@ function onEditItemClick(itemId: number) {
 
 <template>
     <!-- Top toolbar -->
-	<div class="toolbar toolbar-top toolbar-primary">
+	<div class="toolbar toolbar-fixed-top toolbar-primary">
         <bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
         <template v-if="editingTicketName == false">
             <span>{{ ticket.name || "Ticket" }}</span>
@@ -160,6 +160,8 @@ function onEditItemClick(itemId: number) {
 
 .ticket-list {
     margin: 1rem;
+    margin-top: calc(var(--size-100) * 4);
+    margin-bottom: calc(var(--size-100) * 7);
 }
 
 .ticket-element {

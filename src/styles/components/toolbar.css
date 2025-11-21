@@ -11,6 +11,11 @@
 	padding: var(--toolbar-padding-y) var(--toolbar-padding-x);
 }
 
+.toolbar-fixed-top {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+}
 .toolbar-fixed-bottom {
 	position: fixed;
 	bottom: 0px;
