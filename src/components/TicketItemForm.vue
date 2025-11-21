@@ -55,13 +55,13 @@ function onFormSubmit() {
 
 <template>
 	<form @submit.prevent="onFormSubmit" class="new-ticket-item-form">
-		<input v-model="draft.label" type="text" placeholder="Article">
+		<input class="input-control" v-model="draft.label" type="text" placeholder="Article">
 		<div class="form-price">
-			<input class="price-input" v-model="draft.price" type="number" placeholder="Prix" min="0" step="0.01">
+			<input class="price-input input-control" v-model="draft.price" type="number" placeholder="Prix" min="0" step="0.01">
 			<span>{{ formatCurrency(fullPrice) }}</span>
 		</div>
 		<div class="form-quantity flex row">
-			<input class="quantity-input" v-model="draft.quantity" type="number" placeholder="Quantité" min="0">
+			<input class="quantity-input input-control" v-model="draft.quantity" type="number" placeholder="Quantité" min="0">
 			<span class="input-spinner" @click="decreaseQuantity">-</span>
 			<span class="input-spinner" @click="increaseQuantity">+</span>
 		</div>
@@ -100,10 +100,5 @@ function onFormSubmit() {
 	font-size: 1.25rem;
 	text-align: center;
 	color: #555;
-}
-
-input {
-	border: 1px solid #eee;
-	padding: 0.5rem;
 }
 </style>

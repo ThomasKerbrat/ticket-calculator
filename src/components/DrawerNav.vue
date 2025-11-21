@@ -40,7 +40,7 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 		</div>
 		<div class="menu-header">Configuration :</div>
 		<div class="list list-flush">
-			<span class="list-item list-item-action" @click="onLinkClick('categories.home')">Catégories</span>
+			<span class="list-item list-item-action" @click="onLinkClick('categories.list')">Catégories</span>
 		</div>
 	</section>
 </template>
