@@ -1,32 +1,32 @@
 .list {
-    --list-border-radius: var(--size-050);
+	--list-border-radius: var(--size-050);
 
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 
-    border: 1px solid #ddd;
-    border-radius: var(--list-border-radius);
-    background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: var(--list-border-radius);
+	background-color: #fff;
 }
 
 .list-flush {
-    border: unset;
-    border-radius: unset;
+	border: unset;
+	border-radius: unset;
 }
 
 .list > .list-item + .list-item {
-    border-top: 1px solid #ddd;
+	border-top: 1px solid #ddd;
 }
 
 .list-item {
-    padding: var(--size-050) var(--size-100);
-    color: #333;
-    text-decoration: none;
+	padding: var(--size-050) var(--size-100);
+	color: #333;
+	text-decoration: none;
 }
 
 .list-item-action {
-    cursor: pointer;
+	cursor: pointer;
 }
 .list-item-action:hover {
-    background-color: #eee;
+	background-color: #eee;
 }

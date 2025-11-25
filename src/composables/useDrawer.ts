@@ -16,9 +16,9 @@ export function useDrawer() {
 	function close() {
 		isOpen.value = false;
 		// TODO: Delay to wait for animation
-        currentComponent.value = null;
-        currentProps.value = {};
-        title.value = "";
+		currentComponent.value = null;
+		currentProps.value = {};
+		title.value = "";
 	}
 
 	return {

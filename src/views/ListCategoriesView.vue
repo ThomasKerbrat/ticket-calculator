@@ -42,7 +42,7 @@ function onSubmit() {
 <template>
 	<!-- Top toolbar -->
 	<div class="toolbar toolbar-fixed-top toolbar-primary">
-        <bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
+		<bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<span>Catégories</span>
 	</div>
 
