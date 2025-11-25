@@ -23,7 +23,7 @@ export function useDrawer() {
 
 	return {
 		isOpen: readonly(isOpen),
-		currentComponent: readonly(currentComponent),
+		currentComponent: currentComponent,
 		currentProps: readonly(currentProps),
 		title: readonly(title),
 		open,
