@@ -38,7 +38,6 @@ function onNewTicketClick() {
 	<div class="toolbar toolbar-top toolbar-primary">
 		<bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<span>Tickets</span>
-		<!-- <span class="toolbar-spacer"></span> -->
 	</div>
 
 	<main>

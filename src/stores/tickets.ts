@@ -13,7 +13,6 @@ function ticketReadSerialize(raw: string): Ticket[] {
 
 export const useTicketsStore = defineStore("tickets", () => {
     const tickets = useLocalStorage<Ticket[]>("tickets", [], { serializer: { read: ticketReadSerialize } });
-    const items = useLocalStorage<TicketItem[]>("tickets", []);
     let nextId = tickets.value.length > 0 ? Math.max(...tickets.value.map((ticket: any) => ticket.id)) + 1 : 1;
 
     function createTicket(): Ticket {
@@ -79,7 +78,6 @@ export const useTicketsStore = defineStore("tickets", () => {
 
     return {
         tickets: readonly(tickets),
-        items,
         createTicket,
         getTicket,
         editTicket,

@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import { useDrawer } from '@/composables/useDrawer';
 import { useNumberFormat } from "@/composables/useNumberFormat";
 import { Ticket } from "@/models/Ticket.ts";
 import { useTicketsStore } from "@/stores/tickets.ts";
-// import AppZoomControls from "@/components/AppZoomControls.vue";
 import DrawerNav from "@/components/DrawerNav.vue";
 import TicketNameInlineForm from "@/components/TicketNameInlineForm.vue";
 
@@ -18,7 +17,6 @@ const route = useRoute();
 
 const ticketsStore = useTicketsStore();
 const ticket = ref(tryGetOrCreateTicket(Number(route.params.id)));
-const totalPrice = computed(() => ticket.value.items.reduce((sum, item) => sum + item.price * item.quantity, 0));
 
 const editingTicketName = ref(false);
 const morePopoverShow = ref(false);
@@ -54,11 +52,6 @@ function deleteTicket() {
     router.push({ name: "tickets.list" });
 }
 
-function onNewTicketClick() {
-    ticket.value = ticketsStore.createTicket();
-    router.push({ name: "tickets.edit", params: { id: ticket.value.id } });
-}
-
 function onAddItemClick() {
     router.push({ name: "items.add", params: { id: ticket.value.id } });
 }
@@ -76,8 +69,6 @@ function onEditItemClick(itemId: number) {
             <span>{{ ticket.name || "Ticket" }}</span>
             <bi icon="pencil" :width="16" :height="16" @click="editingTicketName = true" />
             <span class="toolbar-spacer"></span>
-            <!-- <AppZoomControls></AppZoomControls> -->
-            <!-- <span v-if="ticket.items.length > 0" class="btn btn-secondary" @click="onNewTicketClick">Nouveau ticket</span> -->
             <div class="popover-container">
                 <bi icon="three-dots-vertical" :width="20" :height="20" @click="togglePopoverShow" />
                 <div class="popover-content" :class="{ 'show': morePopoverShow }">
