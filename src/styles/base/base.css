@@ -91,6 +91,9 @@
 
 	/* ===== Brand ===== */
 
+	--white: #ffffff;
+	--black: #000000;
+
 	--space-base: 16px;
 	--space-0: 0;
 	--space-px: 1px;
@@ -118,6 +121,19 @@
 	--size-8: calc(var(--size-base) * 2);
 
 	/* ===== Aliases ===== */
+
+	--neutral-50: var(--grayscale-50);
+	--neutral-100: var(--grayscale-100);
+	--neutral-200: var(--grayscale-200);
+	--neutral-300: var(--grayscale-300);
+	--neutral-400: var(--grayscale-400);
+	--neutral-500: var(--grayscale-500);
+	--neutral-600: var(--grayscale-600);
+	--neutral-700: var(--grayscale-700);
+	--neutral-800: var(--grayscale-800);
+	--neutral-900: var(--grayscale-900);
+	--neutral-1000: var(--grayscale-1000);
+	--neutral-1100: var(--grayscale-1100);
 
 	--primary-50: var(--green-50);
 	--primary-100: var(--green-100);
@@ -159,25 +175,39 @@
 	 * border
 	 */
 
-	--color-text-body: var(--grayscale-1100);
-	--color-text-disabled: var(--grayscale-800);
-	--color-text-on-action: var(--grayscale-100);
+	--color-text-body: var(--neutral-1100);
+	--color-text-disabled: var(--neutral-800);
+	--color-text-on-action: var(--neutral-100);
 
+	--color-surface-page: var(--neutral-50);
+	--color-surface-page-hover: var(--neutral-200);
 	--color-surface-action: var(--primary-700);
-	--color-surface-secondary: var(--secondary-200);
+	--color-surface-neutral: var(--neutral-300);
 
-	--color-border-secondary: var(--secondary-400);
+	--color-border-neutral: var(--neutral-400);
+}
 
-	--border-secondary: var(--space-px) solid var(--color-border-secondary);
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-text-body: var(--neutral-50);
+		--color-text-disabled: var(--neutral-700);
+
+		--color-surface-page: var(--neutral-1100);
+		--color-surface-page-hover: var(--neutral-1000);
+		--color-surface-neutral: var(--neutral-1000);
+
+		--color-border-neutral: var(--neutral-900);
+	}
+}
+
+* {
+	/* color: #ff00ff; */
+	/* background-color: #ffccff; */
+	/* border-color: #ff66ff; */
 }
 
 html {
 	font-size: var(--size-100);
 	font-family: Arial, Helvetica, sans-serif;
-}
-
-* {
-	color: rgba(255, 0, 255, 1);
-	background-color: rgba(255, 0, 255, 0.2);
-	border-color: rgba(255, 0, 255, 0.4);
+	background-color: var(--color-surface-page);
 }

@@ -53,7 +53,7 @@ section#drawer-nav-stack {
 }
 
 .list {
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--color-border-neutral);
 }
 
 .menu-header {

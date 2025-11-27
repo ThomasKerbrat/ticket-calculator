@@ -39,7 +39,7 @@ const { isOpen, currentComponent, currentProps, title, close } = useDrawer();
 	left: 0;
 	width: 320px;
 	height: 100%;
-	background-color: white;
+	background-color: var(--color-surface-page);
 	transform: translateX(-100%);
 	z-index: 1000;
 	display: flex;

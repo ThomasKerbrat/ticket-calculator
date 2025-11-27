@@ -63,7 +63,7 @@ function onEditItemClick(itemId: number) {
 
 <template>
 	<!-- Top toolbar -->
-	<div class="toolbar toolbar-fixed-top toolbar-secondary">
+	<div class="toolbar toolbar-fixed-top">
 		<bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<template v-if="editingTicketName == false">
 			<span>{{ ticket.name || "Ticket" }}</span>
@@ -108,7 +108,7 @@ function onEditItemClick(itemId: number) {
 	</template>
 
 	<!-- Bottom toolbar -->
-	<div class="toolbar toolbar-fixed-bottom toolbar-secondary">
+	<div class="toolbar toolbar-fixed-bottom">
 		<span>{{ ticket.items.length }} lignes - {{ ticket.totalQuantity }} articles</span>
 		<span class="toolbar-spacer"></span>
 		<span class="items-total-price">{{ formatCurrency(ticket.totalPrice) }}</span>
@@ -138,7 +138,7 @@ function onEditItemClick(itemId: number) {
 
 	margin: 20vh var(--space-4);
 	border-radius: var(--space-4);
-	background-color: var(--color-surface-secondary);
+	background-color: var(--color-surface-neutral);
 	padding: var(--space-4) var(--space-4);
 }
 .new-item-hero > * {

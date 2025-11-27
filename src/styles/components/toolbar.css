@@ -9,29 +9,26 @@
 
 	height: var(--toolbar-height);
 	padding: var(--toolbar-padding-y) var(--toolbar-padding-x);
+
+	background-color: var(--color-surface-neutral);
+}
+.toolbar * {
+	color: var(--color-text-body);
 }
 
 .toolbar-fixed-top {
 	position: fixed;
 	top: 0px;
 	width: 100%;
+	border-bottom: 1px solid var(--color-border-neutral);
 }
 .toolbar-fixed-bottom {
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
+	border-top: 1px solid var(--color-border-neutral);
 }
 
 .toolbar-spacer {
 	flex-grow: 1;
-}
-
-.toolbar-secondary {
-	background-color: var(--color-surface-secondary);
-}
-.toolbar-secondary.toolbar-fixed-top {
-	border-bottom: 1px solid var(--color-border-secondary);
-}
-.toolbar-secondary.toolbar-fixed-bottom {
-	border-top: 1px solid var(--color-border-secondary);
 }
