@@ -1,6 +1,5 @@
 .btn {
 	display: inline-block;
-	background-color: #eee;
 	padding: var(--size-050) var(--size-100);
 	text-align: center;
 	border-radius: var(--size-050);
@@ -20,16 +19,22 @@
 }
 
 .btn-secondary {
-	background-color: hsl(120deg, 100%, 90%);
+	color: var(--color-text-body);
+	background-color: var(--color-surface-neutral);
 }
 
 .btn-danger {
-	background-color: hsl(0deg, 100%, 90%);
+	background-color: var(--color-surface-danger);
+}
+.btn-danger.btn-outline {
+	background-color: unset;
+	border: var(--space-px) solid var(--color-border-danger);
+	color: var(--color-text-danger);
 }
 
-.btn-outlined {
+.btn-outline {
 	background-color: unset;
-	border: 1px solid #eee;
+	border: 1px solid var(--color-border-neutral);
 }
 
 .btn-sm {

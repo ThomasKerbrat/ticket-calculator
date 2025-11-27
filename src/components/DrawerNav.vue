@@ -31,7 +31,7 @@ function onLinkClick(routeName: RouteRecordNameGeneric, routeParams?: RouteParam
 				<span style="display: flex; flex-direction: row; gap: var(--size-050);">
 					<span v-if="ticket.name">{{ ticket.name }}</span>
 					<span v-else>{{ formatDateTime(ticket.created, { dateStyle: "short", timeStyle: "short" }) }}</span>
-					<span style="color: #777">{{ ticket.totalQuantity }} articles</span>
+					<span style="color: var(--color-text-disabled)">{{ ticket.totalQuantity }} articles</span>
 					<span style="flex-grow: 1;"></span>
 					<span>{{ formatCurrency(ticket.totalPrice) }}</span>
 				</span>
@@ -53,6 +53,7 @@ section#drawer-nav-stack {
 }
 
 .list {
+	border-top: 1px solid var(--color-border-neutral);
 	border-bottom: 1px solid var(--color-border-neutral);
 }
 
@@ -62,6 +63,6 @@ section#drawer-nav-stack {
 	padding-left: var(--size-100);
 	font-size: calc(var(--size-100) * 0.9);
 	font-weight: bold;
-	color: #777;
+	color: var(--color-text-disabled);
 }
 </style>

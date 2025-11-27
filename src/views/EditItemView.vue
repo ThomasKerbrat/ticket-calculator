@@ -34,10 +34,10 @@ function onDeleteClick() {
 	<section>
 		<div class="heading">
 			<h1 class="heading-title">Modifier l'article</h1>
-			<span class="btn btn-outlined btn-sm" @click="onCancelClick">annuler</span>
+			<span class="btn btn-outline btn-sm" @click="onCancelClick">annuler</span>
 		</div>
 		<TicketItemForm :draft="item" submit-text="Modifier" @submit="onFormSubmit"></TicketItemForm>
-		<span class="btn btn-danger" @click="onDeleteClick">Supprimer</span>
+		<span class="btn btn-outline btn-danger" @click="onDeleteClick">Supprimer</span>
 	</section>
 </template>
 

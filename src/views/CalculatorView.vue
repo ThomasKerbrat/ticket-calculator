@@ -102,7 +102,7 @@ function onEditItemClick(itemId: number) {
 		</section>
 
 		<!-- Floating action button -->
-		<span class="new-item btn btn-icon" @click="onAddItemClick">
+		<span class="new-item btn btn-icon btn-primary" @click="onAddItemClick">
 			<bi icon="plus" />
 		</span>
 	</template>

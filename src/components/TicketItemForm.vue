@@ -62,10 +62,10 @@ function onFormSubmit() {
 		</div>
 		<div class="form-quantity flex row">
 			<input class="quantity-input input-control" v-model="draft.quantity" type="number" placeholder="Quantité" min="0">
-			<span class="input-spinner" @click="decreaseQuantity">-</span>
-			<span class="input-spinner" @click="increaseQuantity">+</span>
+			<span class="input-spinner" @click="decreaseQuantity"><bi icon="dash" /></span>
+			<span class="input-spinner" @click="increaseQuantity"><bi icon="plus" /></span>
 		</div>
-		<button class="btn submit-button">{{ props.submitText }}</button>
+		<button class="btn btn-primary submit-button">{{ props.submitText }}</button>
 	</form>
 </template>
 
@@ -90,15 +90,5 @@ function onFormSubmit() {
 }
 .quantity-input {
 	flex-grow: 1;
-}
-.input-spinner {
-	display: inline-block;
-	border: 1px solid #eee;
-	border-left: none;
-	padding-top: 0.375rem;
-	width: 2.5rem;
-	font-size: 1.25rem;
-	text-align: center;
-	color: #555;
 }
 </style>
