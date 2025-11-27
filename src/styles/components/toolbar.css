@@ -26,12 +26,12 @@
 	flex-grow: 1;
 }
 
-.toolbar-primary {
-	background-color: #eee;
+.toolbar-secondary {
+	background-color: var(--color-surface-secondary);
 }
-.toolbar-primary.toolbar-top {
-	border-bottom: 1px solid #ddd;
+.toolbar-secondary.toolbar-fixed-top {
+	border-bottom: 1px solid var(--color-border-secondary);
 }
-.toolbar-primary.toolbar-fixed-bottom {
-	border-top: 1px solid #ddd;
+.toolbar-secondary.toolbar-fixed-bottom {
+	border-top: 1px solid var(--color-border-secondary);
 }

@@ -15,7 +15,8 @@
 }
 
 .btn-primary {
-	background-color: hsl(240deg, 100%, 80%);
+	background-color: var(--color-surface-action);
+	color: var(--color-text-on-action);
 }
 
 .btn-secondary {

@@ -63,7 +63,7 @@ function onEditItemClick(itemId: number) {
 
 <template>
 	<!-- Top toolbar -->
-	<div class="toolbar toolbar-fixed-top toolbar-primary">
+	<div class="toolbar toolbar-fixed-top toolbar-secondary">
 		<bi icon="list" @click="open({ component: DrawerNav, title: 'Menu' })" />
 		<template v-if="editingTicketName == false">
 			<span>{{ ticket.name || "Ticket" }}</span>
@@ -108,7 +108,7 @@ function onEditItemClick(itemId: number) {
 	</template>
 
 	<!-- Bottom toolbar -->
-	<div class="toolbar toolbar-fixed-bottom toolbar-primary">
+	<div class="toolbar toolbar-fixed-bottom toolbar-secondary">
 		<span>{{ ticket.items.length }} lignes - {{ ticket.totalQuantity }} articles</span>
 		<span class="toolbar-spacer"></span>
 		<span class="items-total-price">{{ formatCurrency(ticket.totalPrice) }}</span>
@@ -122,7 +122,7 @@ function onEditItemClick(itemId: number) {
 
 .new-item {
 	position: fixed;
-	right: 1rem;
+	right: var(--space-4);
 	bottom: 3.5rem;
 	width: 3rem;
 	height: 3rem;
@@ -132,18 +132,20 @@ function onEditItemClick(itemId: number) {
 .new-item-hero {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	gap: var(--space-4);
 	justify-content: center;
 	align-items: center;
 
-	margin: 0 1rem;
-	margin-top: 20vh;
-	padding: 1rem 1rem;
-	border: 1px solid #ddd;
-	border-radius: 1rem;
+	margin: 20vh var(--space-4);
+	border-radius: var(--space-4);
+	background-color: var(--color-surface-secondary);
+	padding: var(--space-4) var(--space-4);
 }
 .new-item-hero > * {
-	margin-top: 1rem;
+	margin-top: var(--space-4);
+}
+.new-item-hero > p {
+	color: var(--color-text-body);
 }
 .new-item-hero > button {
 	width: 100%;
@@ -160,7 +162,7 @@ function onEditItemClick(itemId: number) {
 	gap: 0.5rem;
 }
 .ticket-element-unit-price {
-	color: var(--text-mutted-color);
+	color: var(--color-text-disabled);
 }
 
 .popover-container {
