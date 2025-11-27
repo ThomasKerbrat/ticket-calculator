@@ -30,3 +30,11 @@
 .list-item-action:hover {
 	background-color: var(--color-surface-page-hover);
 }
+.list:not(.list-flush) .list-item-action:first-child:hover {
+	border-top-left-radius: var(--size-050);
+	border-top-right-radius: var(--size-050);
+}
+.list:not(.list-flush) .list-item-action:last-child:hover {
+	border-bottom-left-radius: var(--size-050);
+	border-bottom-right-radius: var(--size-050);
+}

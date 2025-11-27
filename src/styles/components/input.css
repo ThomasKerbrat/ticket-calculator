@@ -3,6 +3,10 @@
 	padding: 0.5rem;
 	color: var(--color-text-body);
 }
+.input-control.input-control-flush {
+	border: unset;
+	padding: unset;
+}
 
 .input-spinner {
 	display: inline-block;

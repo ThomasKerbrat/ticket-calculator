@@ -59,7 +59,7 @@ function onSubmit() {
 				<template v-else>
 					<bi icon="trash" @click="onCategoryDelete(index)" />
 					<form @submit.prevent="onCategoryNameSubmit">
-						<input autofocus v-model="editedCategoryName">
+						<input class="input-control input-control-flush" autofocus v-model="editedCategoryName">
 					</form>
 					<bi icon="check2" @click="onCategoryNameSubmit" />
 					<bi icon="x" @click="toggleEdit(index)" />
@@ -70,7 +70,7 @@ function onSubmit() {
 		<form @submit.prevent="onSubmit">
 			<div class="category-form">
 				<input class="input-control name-input" type="text" placeholder="Nom de la nouvelle catégorie" v-model="categoryName">
-				<button class="btn">Ok</button>
+				<button class="btn btn-primary">Ok</button>
 			</div>
 		</form>
 	</main>
@@ -99,7 +99,7 @@ main {
 	margin-left: var(--size-050);
 }
 #categories-list .muted {
-	color: var(--text-disabled-color);
+	color: var(--color-text-disabled);
 }
 
 .category-form {
