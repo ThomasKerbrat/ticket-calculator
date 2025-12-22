@@ -19,14 +19,21 @@
 .toolbar-fixed-top {
 	position: fixed;
 	top: 0px;
-	width: 100%;
+	width: calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right));
 	border-bottom: 1px solid var(--color-border-neutral);
 }
 .toolbar-fixed-bottom {
 	position: fixed;
 	bottom: 0px;
-	width: 100%;
+	height: calc(var(--toolbar-height) + env(safe-area-inset-bottom));
+	width: calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right));
 	border-top: 1px solid var(--color-border-neutral);
+	padding-bottom: calc(var(--toolbar-padding-y) + env(safe-area-inset-bottom));
+}
+
+.toolbar-ghost {
+	background-color: unset;
+	border: unset;
 }
 
 .toolbar-spacer {

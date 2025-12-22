@@ -52,7 +52,7 @@ function onNewTicketClick() {
 		</section>
 	</main>
 
-	<div id="new-ticket">
+	<div class="toolbar toolbar-ghost toolbar-fixed-bottom" id="new-ticket">
 		<span class="btn btn-primary" @click="onNewTicketClick">Nouveau ticket</span>
 	</div>
 </template>
@@ -62,12 +62,12 @@ main {
 	margin: var(--size-100);
 }
 
-#new-ticket {
+/* #new-ticket {
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
 	padding: var(--size-100);
-}
+} */
 #new-ticket > .btn {
 	width: 100%;
 }

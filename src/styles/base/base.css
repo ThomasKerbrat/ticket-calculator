@@ -228,3 +228,13 @@ html {
 	color: var(--color-text-body);
 	background-color: var(--color-surface-page);
 }
+
+body {
+	margin: 0px;
+	padding:
+		env(safe-area-inset-top)
+		env(safe-area-inset-right)
+		env(safe-area-inset-bottom)
+		env(safe-area-inset-left);
+	/* background-color: pink; */
+}
