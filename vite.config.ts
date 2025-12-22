@@ -16,5 +16,5 @@ export default defineConfig({
       '@bi': fileURLToPath(new URL('./node_modules/bootstrap-icons', import.meta.url)),
     },
   },
-  base: "./"
+  base: "/ticket-calculator/"
 })

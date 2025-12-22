@@ -123,7 +123,7 @@ function onEditItemClick(itemId: number) {
 .new-item {
 	position: fixed;
 	right: var(--space-4);
-	bottom: 3.5rem;
+	bottom: calc(3.5rem + env(safe-area-inset-bottom));
 	width: 3rem;
 	height: 3rem;
 	border-radius: 50%;

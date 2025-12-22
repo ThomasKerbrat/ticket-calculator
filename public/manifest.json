@@ -2,7 +2,7 @@
 	"name": "Ticket Calculator",
 	"short_name": "TicketCalc",
 	"description": "Prévisualisez votre ticket de caisse",
-	"start_url": "/",
+	"start_url": "/ticket-calculator/",
 	"display": "standalone",
 	"background_color": "#ffffff",
 	"theme_color": "#ffffff",
